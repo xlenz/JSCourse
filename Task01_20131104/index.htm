@@ -15,8 +15,58 @@
     <section>
       <a name="about"></a>
       <strong>About</strong>
-      <p>Task 01 - 20131104</p>
-      <p>Large text amount is coming up</p>
+      Доброго времени суток и с прошедшим Днем народного единства! Хочу рассказать об одном хорошем проекте — .<br>
+      <br>
+      <a href="https://oauth.io/"><img src="http://habr.habrastorage.org/post_images/9e4/c6b/ef9/9e4c6bef96d96e40e96501ca4bbe6c0f.jpg"></a><br>
+      OAuth.io — это API (<a href="https://github.com/oauth-io/oauth-js">JavaScript</a>,
+      <a href="https://github.com/oauth-io/oauth-phonegap">PhoneGap</a>,
+      <a href="https://github.com/oauth-io/oauth-ios">iOS</a>,
+      <a href="https://github.com/oauth-io/oauth-android">Android</a>,
+      <a href="https://github.com/oauth-io/oauth-flex">Flex</a>) и сервис, который значительно упрощает
+      взаимодействие более чем с <a href="https://oauth.io/providers">80-ю oAuth провайдерами</a>
+      (Facebook, Twitter, VK, GitHub, Dropbox, и др).
+      Сервис работает по модели freemium: до 5000 соединений в месяц сервис бесплатный,
+      при большем количестве вас ждут <a href="https://oauth.io/pricing">вполне демократичные цены</a>.
+      Стоит также сказать, что проект <b>полностью открытый</b> и вы сможете <b>сами запустить у себя</b>
+      серверную часть «OAuth IO Daemon» (<a href="https://github.com/oauth-io/oauthd">GitHub</a>).<br>
+      <br>
+      <br>
+      <h5>Регистрируемся и создаем приложение в OAuth.io: </h5>
+      <br>
+      <img src="http://habr.habrastorage.org/post_images/87e/5c0/d4b/87e5c0d4bad998e544ebc0ca5034e278.png" alt="image"><br>
+      <br>
+      <h5>Создаем приложение на Facebook, домен и URL для callback будет <code>oauth.io</code> и <code>https://oauth.io/auth</code> соответственно:</h5>
+      <br>
+      <img src="http://habr.habrastorage.org/post_images/f9e/f0f/9b4/f9ef0f9b40cc24ea564d9d83ebd7ca13.png" alt="image"><br>
+      <br>
+      <h5>Настраиваем Facebook, указав сгенерированные App ID и App Secret:</h5>
+      <br>
+      <img src="http://habr.habrastorage.org/post_images/823/5ff/e3a/8235ffe3accd23a797604f135a0e640a.png" alt="image"><br>
+      <br>
+      <br>
+      <h4>JavaScript</h4>
+      <br>
+      Подключаем библиотеку:<br>
+      <br>
+      Инициализируем наше приложение: <br>
+      <b>Получаем токен</b>:<br>
+      <h5>Всплывающее окно:</h5>
+      <br>
+      <br>
+      <h5>Редирект:</h5>
+      <br>
+      <pre><code class="javascript"><span class="comment">//Using redirection (option 2)</span>
+OAuth.redirect(<span class="string">'facebook'</span>, <span class="string">"callback/url"</span>);
+
+OAuth.callback(<span class="string">'facebook'</span>, <span class="keyword">function</span>(err, result) {
+  <span class="comment">//handle error with err</span>
+  <span class="comment">//use result.access_token in your API request</span>
+});
+</code></pre>
+      <br>
+      <a href="http://oauth-io.github.io/oauth-js/">Рабочий пример</a><br>
+      <br>
+      Спасибо всем за внимание! <br>
     </section>
     <section>
       <a name="faq"></a>
@@ -28,17 +78,14 @@
       </ol>
     </section>
     <section>
-      <a name="contacts"><strong>Address</strong></a>      
-      <address><p> <!-- damned margins, that's why <p> was added :( -->
-        Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br> 
-        Visit us at: <a href="https://github.com/xlenz/JSCourse">github</a><br>
-        Box 564, Disneyland<br>
-        WWW, Github
-        Phone: <a href="tel:+380631112233">063-111-22-33</a>
+      <a name="contacts"><strong>Address</strong></a>
+      <address><p>
+        Mail: <a href="mailto:webmaster@example.com">Jon Doe</a>,
+        phone: <a href="tel:+380631112233">063-111-22-33</a>
       </p></address>
     </section>
     <section>
-      <a name="signup"><strong>Register</strong></a>      
+      <a name="signup"><strong>Register</strong></a>
       <form action="signup" method="post">
         <p>todo</p>
       </form>
@@ -50,12 +97,15 @@
       </form>
     </section>
     <footer>
-      <nav><em> <!-- can I wrap all the links with em or I'd better wrap each link?.. -->
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contacts">Contacts</a>
-        <a href="#signup">Register</a>
-      </em></nav>
+      <nav>
+        <em>
+          <!-- can I wrap all the links with em or I'd better wrap each link?.. -->
+          <a href="#about">About</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacts">Contacts</a>
+          <a href="#signup">Register</a>
+        </em>
+      </nav>
       All rigths reserved &copy;
       <a href="https://help.github.com/articles/github-terms-of-service">TOS</a>
     </footer>
