@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<!-- bla -->
+  <head>
+    <title>Task 01</title>
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+
+    <header>
+      <h1>Useful stuff for UI developers</h1>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contacts">Contacts</a></li>
+          <li><a href="#signup">Register</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <article>
+      <section id="about">
+        <h2>Here is something you might find interesting</h2>
+        <nav>
+          <ul>
+            <li><a href="#riot">Riot.js</a></li>
+            <li><a href="#snazzy">Snazzymaps</a></li>
+            <li><a href="#warp9">Warp9</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <section id="riot">
+        <h3>Riot.js</h3>
+        <p>
+          <a href="https://moot.it/riotjs/">Riot.js</a> — The 1kb client-side MVP framework
+        </p>
+        <h4>Statistics</h4>
+        <h5>Size</h5>
+        <figure>
+          <img src="http://habr.habrastorage.org/post_images/3d8/283/584/3d8283584871f158c3ea1b6784511c8d.jpg" alt="">
+        </figure>
+        <h5>Response Latency</h5>
+        <figure>
+          <img src="http://habr.habrastorage.org/post_images/f65/a11/cd1/f65a11cd119713979f72aa7c3c1c1655.jpg" alt="">
+        </figure>
+      </section>
+
+      <section id="snazzy">
+        <h3>Snazzymaps</h3>
+        <p>
+          <a href="http://snazzymaps.com/">Snazzymaps</a> — коллекция JS стилей для Google карт
+        </p>
+        <figure>
+          <img src="http://habr.habrastorage.org/post_images/cbe/2b7/e94/cbe2b7e940e21fe1b315fc18a5019555.jpg" alt="">
+          <figcaption><a href="http://snazzymaps.com/">Snazzymaps</a></figcaption>
+        </figure>
+      </section>
+
+      <section id="warp9">
+        <h3>Warp9</h3>
+        <p>
+          В основе <strong>warp9</strong> лежит очень простая идея: а давайте возьмем реактивную модель,
+          применим к ней преобразование и получим связанный с моделью реактивный DOM.
+          Существует множество реактивных и около-реактивных библиотек для создания графического интерфейса
+          на js: <em>Angular, Knockout, React, RxJS</em>… Спрашивается, зачем писать еще одну.
+          Оказывается, во всех них, помимо фатального недостатка, есть еще несколько.
+        </p>
+        <p>
+          Так как RxJS и Bacon.js являются библиотеками для управления событиями, и не предоставляют примитивов
+          облегчающих создание интерфейсов, то некоторые вопросы к ним просто не применимы.
+          В принципе, брать их за основу проектирования GUI немного нелепо, но я все же включил их в таблицу,
+          так как есть большой шанс, что их кто-то упомянет в комментариях.
+        </p>
+        <figure>
+          <img src="http://habr.habrastorage.org/post_images/309/65f/2cb/30965f2cba56caa521adf76817ee4782.png" alt="">
+        </figure>
+        <h4>Comparation</h4>
+        <table>
+          <tbody>
+            <tr>
+              <th></th>
+              <th>AngularJS</th>
+              <th>Knockout</th>
+              <th>React</th>
+              <th>Elm</th>
+              <th>RxJS, Bacon</th>
+              <th>ReactiveCoffee</th>
+              <th>Warp9</th>
+            </tr>
+            <tr>
+              <td><a href="#template_based">template based</a></td>
+              <td>yes/no</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>no</td>
+              <td></td>
+              <td>no</td>
+              <td>no</td>
+            </tr>
+            <tr>
+              <td><a href="#controls_composability">controls composability</a></td>
+              <td>no</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td></td>
+              <td>yes</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#modularization_of_controls">modularization of controls</a></td>
+              <td>yes/no</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>maybe</td>
+              <td></td>
+              <td>yes</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#2_way_binding">2 way binding</a></td>
+              <td>yes/no</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#accidental_memory_leaks">accidental memory leaks</a></td>
+              <td>no</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>no</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>no</td>
+            </tr>
+            <tr>
+              <td><a href="#todomvc">todomvc</a></td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>maybe</td>
+              <td>yes/no</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#headless">headless</a></td>
+              <td>no</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#pure_js">pure js</a></td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>no</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#mixing_markup_and_logic">mixing markup and logic</a></td>
+              <td>yes/no</td>
+              <td>no</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td></td>
+              <td>yes</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#simplicity">simplicity</a></td>
+              <td>no</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td><a href="#rich_reactive_list">rich reactive list</a></td>
+              <td>no</td>
+              <td>no</td>
+              <td></td>
+              <td>yes</td>
+              <td>no</td>
+              <td>no</td>
+              <td>yes</td>
+            </tr>
+          </tbody>
+        </table>
+        <h4>Example</h4>
+        <pre><code>var dispose = lifted.onEvent(Cell.handler({
+    set: function(value) { console.info(“set: ” + value); },
+    unset: function() { console.info(“unset”); }
+}));
+        </code></pre>
+      </section>
+    </article>
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+        <dl>
+          <dt><em>Can I send some feedback?</em></dt>
+          <dd>Please see the <a href="#feedback">form</a> bellow.</dd>
+        </dl>
+    </section>
+
+    <section id="contacts">
+      <h2>Address</h2>
+        <p>Ukraine, Kiev</p>
+        <p>Send <a href="mailto:test@test.com">email</a></p>
+        <p>Phone <a href="tel:+380631234455">+(380) 63 123-44-55</a></p>
+    </section>
+
+    <section id="signup">
+      <h2>Register</h2>
+      <form action="signup" method="post">
+        <p>
+          <label>
+          E-mail:
+          <input type="email" placeholder="Email" autocomplete="on">
+          </label><br>
+          <label>
+          Password:
+          <input type="password">
+          </label><br>
+          <label>
+          Confirm:
+          <input type="password">
+          </label><br>
+          <input type="submit">
+        </p>
+      </form>
+    </section>
+
+    <section id="feedback">
+      <h2>Share feedback</h2>
+      <form action="feedback" method="post">
+        <p>
+          <label>
+          E-mail:
+          <input type="email" placeholder="Email">
+          </label><br>
+          <label>
+          Subject:
+          <input type="text" placeholder="Main idea/question">
+          </label><br>
+          <label>
+          Description:
+          <input type="text" placeholder="Details">
+          </label><br>
+          <input type="submit">
+        </p>
+      </form>
+    </section>
+
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contacts">Contacts</a></li>
+          <li><a href="#signup">Register</a></li>
+        </ul>
+      </nav>
+      All rigths reserved &copy;
+      <a href="https://help.github.com/articles/github-terms-of-service">TOS</a>
+    </footer>
+
+  </body>
+</html>
