@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
-<!-- bla -->
+
   <head>
-    <title>Task 01</title>
+    <title>Task 02</title>
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/unreset.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
     <meta charset="UTF-8">
   </head>
 
   <body>
 
     <header>
-      <h1>Useful stuff for UI developers</h1>
-      <nav>
+      <nav id="top-menu">
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contacts">Contacts</a></li>
           <li><a href="#signup">Register</a></li>
+          <li></li>
         </ul>
       </nav>
+      <h1>Useful stuff for UI developers</h1>
     </header>
 
     <article>
@@ -32,7 +36,7 @@
         </nav>
       </section>
 
-      <section id="riot">
+      <section id="riot" class="whiteBackground">
         <h3>Riot.js</h3>
         <p>
           <a href="https://moot.it/riotjs/">Riot.js</a> — The 1kb client-side MVP framework
@@ -221,27 +225,21 @@
 
     <section id="contacts">
       <h2>Address</h2>
-        <p>Ukraine, Kiev</p>
-        <p>Send <a href="mailto:test@test.com">email</a></p>
-        <p>Phone <a href="tel:+380631234455">+(380) 63 123-44-55</a></p>
+      <p>Ukraine, Kiev</p>
+      <p>Send <a href="mailto:test@test.com">email</a></p>
+      <p>Phone <a href="tel:+380631234455">+(380) 63 123-44-55</a></p>
     </section>
 
     <section id="signup">
       <h2>Register</h2>
       <form action="signup" method="post">
         <p>
-          <label>
-          E-mail:
-          <input type="email" placeholder="Email" autocomplete="on">
-          </label><br>
-          <label>
-          Password:
-          <input type="password">
-          </label><br>
-          <label>
-          Confirm:
-          <input type="password">
-          </label><br>
+          <label>E-mail:</label>
+          <input type="email" placeholder="Email" autocomplete="on"><br>
+          <label>Password:</label>
+          <input type="password"><br>
+          <label>Confirm:</label>
+          <input type="password"><br>
           <input type="submit">
         </p>
       </form>
@@ -251,32 +249,25 @@
       <h2>Share feedback</h2>
       <form action="feedback" method="post">
         <p>
-          <label>
-          E-mail:
-          <input type="email" placeholder="Email">
-          </label><br>
-          <label>
-          Subject:
-          <input type="text" placeholder="Main idea/question">
-          </label><br>
-          <label>
-          Description:
-          <input type="text" placeholder="Details">
-          </label><br>
+          <label>E-mail:</label>
+          <input type="email" placeholder="Email"><br>
+          <label>Subject:</label>
+          <input type="text" placeholder="Main idea/question"><br>
+          <label>Description:</label><input type="textarea" placeholder="Details"><br>
           <input type="submit">
         </p>
       </form>
     </section>
 
     <footer>
-      <nav>
+      <!--nav>
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contacts">Contacts</a></li>
           <li><a href="#signup">Register</a></li>
         </ul>
-      </nav>
+      </nav-->
       All rigths reserved &copy;
       <a href="https://help.github.com/articles/github-terms-of-service">TOS</a>
     </footer>

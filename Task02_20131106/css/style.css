@@ -1,0 +1,120 @@
+h1 {
+    font-size: 2.25em;
+    line-height: 2.5em;
+}
+
+h2 {
+    font-size: 1.875em;
+    line-height: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.750em;
+}
+
+h4 {
+    font-size: 1.25em;
+    line-height: 1.5em;
+}
+
+h5 {
+    font-size: 1.075em;
+    line-height: 1.375em;
+}
+
+body {
+    background: #FFFFF3;
+    margin-left: 2em;
+    max-width: 1024px;
+}
+
+footer {
+    padding: 2em;
+    border-top: 1px solid #e5e5e5;
+}
+
+article>section>p:first-letter {
+    font-size: 1.05em;
+    font-weight: bold;
+}
+
+a {
+    color: #428bca;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+}
+
+input {
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+form input {
+    padding-left: 4px;
+}
+
+form label {
+    width: 6em;
+    float: left;
+}
+
+nav#top-menu li:last-child {
+    clear: both;
+    visibility: hidden;
+}
+
+nav#top-menu ul {
+    margin: 0;
+}
+
+nav#top-menu li {
+    list-style: none;
+    background-color: black;
+}
+
+nav#top-menu li a {
+    border: 1px solid #e5e5e5;
+    float: left;
+    padding-right: 1em;
+    padding-left: 1em;
+    background-color: #181818;
+    color: #fff;
+    font-size: 1.5em;
+    border-radius: 5px;
+}
+
+nav#top-menu li a:hover {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav#top-menu li a:hover:before {
+    content: "*";
+}
+
+nav#top-menu li a:hover:after {
+    content: "*";
+}
+
+section#contacts p {
+    margin-bottom: 0;
+}
+
+section#contacts p:last-child{
+    margin-bottom: 1.5em;
+}
+
+section.whiteBackground {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+section.whiteBackground p {
+    font-size: 1.1em;
+    font-style: italic;
+}
