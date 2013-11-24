@@ -1,0 +1,88 @@
+https://gist.github.com/dmitryt/7536676
+
+«адача є1
+–аньше в JavaScriptТe очень не хватало биндинга событий\функций.
+Ќачина€ с Javascript 1.8.5(IE9, FF4, Chrome7, Opera 11.6) по€вилась нативна€ реализаци€.
+–аньше же приходилось писать собственную реализацию биндинга или использовать существующие решени€.
+
+Ќапишите реализацию функции bind,
+котора€ позвол€ет выполн€ть функцию в передаваемом контексте выполнени€ и аргументами.
+
+ѕодсказка: ќбратите внимание на методы apply/call нативного JavaScript.
+ 
+ѕример:
+ 
+var App = function(){
+  return {
+    init: function() {
+      this.nodes = document.querySelectorAll('.node');
+      this.setListeners();
+    },
+    
+    setListeners: function() {
+      [].slice.call(this.nodes).forEach(function(n){
+        n.onclick = this.onClick.myBind(this);
+      }, this);
+    },
+    
+    onClick: function(e) {
+      e = e || window.event;
+      var node = e.target || e.srcElement;
+      // this - should be the main context - instance of App
+      // node - should be the node, that fires event
+    }
+  };
+};
+ 
+if (typeof Function.prototype.myBind !== 'undefined') {
+  Function.prototype.myBind = function(context){
+    // Put your code here
+  };
+}
+ 
+(new App()).init();
+ 
+«адача є2
+Ќапишите реализацию конструктора, принимающего на вход объект и создающего аттрибуты\методы по ключам этого объекта:
+ 
+var Person = function(args){
+   // put your code here
+};
+ 
+var p = new Person({
+   name: СJackТ, 
+   age: Т10Т,
+   jump: function(){ return УMy name is Ф + this.name + У and I can jump.Ф;}
+});
+p.name // СJackТ
+p.age // 10
+console.log(p.jump()) // УMy name is Jack and I can jump.Ф
+ 
+«адача є3
+ћодифицируйте конструктор из прошлой задачи, добавив к нему геттеры\сеттеры дл€ каждого переданного свойства.
+ 
+var p = new Person({
+   name: СJackТ, 
+   age: Т10Т
+});
+p.getName() // СJackТ
+p.name // undefined
+p.getAge() // 10
+p.age // undefined
+console.log(p.jump()) // УMy name is Jack and I can jump.Ф
+console.log(p.getJump) // undefined
+ 
+«адача є4
+Ќапишите конструктор $, который принимает аргументом DOM селектор.
+ 
+–еализуйте методы width, height которые соответсвенно измен€ют ширишу и высоту всех селекторов, 
+которые мы определили ранее.
+ 
+ѕример:
+var $div = $('div') 
+console.log( $div ) //показать все div на странице.
+ 
+var $red = $('.red') 
+console.log( $red ) //показать все DOM элементы с классом .red, которые присутсвуют на странице
+ 
+$red.width('100') //измен€ет текущую высоту до 100px всех DOM элементов с классом .red
