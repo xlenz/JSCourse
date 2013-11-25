@@ -37,8 +37,9 @@ var people = [
 
 function getObject (path, obj) {
     var arr = path.split('.');
-    if (obj === undefined || obj === null)
+    if (obj === undefined || obj === null) {
         return obj;
+    }
     for (var i = 0; i < arr.length; i++) {
         obj = obj[arr[i]];
     }
@@ -46,11 +47,12 @@ function getObject (path, obj) {
 }
 
 function objClone(obj) {
-    if (obj == null || typeof obj != 'object')
-        return obj;
     var copy = {};
-    for (var attr in obj) {
-        copy[attr] = obj[attr];
+    for(var i in obj) {
+        if(typeof(obj[i]) == "object" && obj[i] != null)
+            copy[i] = cloneObject(obj[i]);
+        else
+            clone[i] = obj[i];
     }
     return copy;
 }
@@ -59,18 +61,21 @@ function getFriends(userId) {
     var friendsListFiltered = [];
     var friendFound = false;
     for (var key in people) {
-        if (people[key].id != null && people[key].id == userId)
+        if (people[key].id != null && people[key].id == userId) {
             friendFound = true;
+        }
         if (people[key].friends != null && Array.isArray(people[key].friends)) {
             var arr = people[key].friends;
             for (var i = 0; i < arr.length; i++) {
-                if (arr[i] == userId)
+                if (arr[i] == userId) {
                     friendsListFiltered.push(people[key]);
+                }
             }
         }
     }
-    if (friendFound)
+    if (friendFound) {
         return friendsListFiltered;
+    }
     return null;
 }
 
