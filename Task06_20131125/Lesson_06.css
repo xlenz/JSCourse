@@ -1,0 +1,12 @@
+table, td {
+    border: 2px solid grey;
+    height: 20px;
+}
+
+table td {
+    width: 120px;
+}
+
+table td.highlight {
+    border-color: #00cc00;
+}
