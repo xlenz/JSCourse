@@ -1,6 +1,16 @@
 'use strict'
 
-//task #1
+if (typeof Object.prototype.forEach === 'undefined') {
+    Object.prototype.forEach = function(callback) {
+        if (Array.isArray(this)) return Array.prototype.forEach.apply(this, Array.prototype.slice.call(arguments));
+        if (typeof callback != 'function') throw new TypeError();
+
+        var propNames = Object.getOwnPropertyNames(this);
+        for (var i = 0; i < propNames.length; i++) {
+            callback(propNames[i]);
+        }
+    }
+}
 
 function makeArray(__args, __startFrom) {
     //make [].slice.call(args) more understandable
@@ -9,6 +19,8 @@ function makeArray(__args, __startFrom) {
     }
     return Array.prototype.slice.call(__args, __startFrom);
 }
+
+//task #1
 
 var App = function () {
     return {
@@ -49,11 +61,11 @@ if (typeof Function.prototype.myBind === 'undefined') {
 //task #2
 
 var Person = function(args) {
-    for (var key in args) {
+    args.forEach(function(key) {
         if (args.hasOwnProperty(key)) {
             this[key] = args[key];
         }
-    }
+    });
 };
 
 var p = new Person({
@@ -77,7 +89,7 @@ var PersonExtended = function (args) {
             }
         }
     };
-    for (var key in args) {
+    args.forEach(function(key) {
         if (args.hasOwnProperty(key) && typeof args[key] !== 'function') {
             var capitalizedProperty = key.substring(0, 1).toUpperCase() + key.substring(1);
             var getterName = 'get' + capitalizedProperty;
@@ -90,7 +102,7 @@ var PersonExtended = function (args) {
         else if (typeof args[key] === 'function') {
             this[key] = args[key].bind(args);
         }
-    }
+    });
 };
 
 

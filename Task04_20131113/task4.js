@@ -46,21 +46,33 @@ function getObject (path, obj) {
     return obj;
 }
 
-function objClone(obj) {
-    var copy = {};
-    for(var i in obj) {
-        if(typeof(obj[i]) == "object" && obj[i] != null)
-            copy[i] = cloneObject(obj[i]);
-        else
-            clone[i] = obj[i];
+if (typeof Object.prototype.forEach === 'undefined') {
+    Object.prototype.forEach = function(callback) {
+        if (Array.isArray(this)) return Array.prototype.forEach.apply(this, Array.prototype.slice.call(arguments));
+        if (typeof callback != 'function') throw new TypeError();
+
+        var propNames = Object.getOwnPropertyNames(this);
+        for (var i = 0; i < propNames.length; i++) {
+            callback(propNames[i]);
+        }
     }
+}
+
+function copyObj(o) {
+    var copy = Object.create( Object.getPrototypeOf(o) );
+
+    o.forEach(function(key) {
+        var desc = Object.getOwnPropertyDescriptor(o, key);
+        Object.defineProperty(copy, key, desc);
+    });
+
     return copy;
 }
 
 function getFriends(userId) {
     var friendsListFiltered = [];
     var friendFound = false;
-    for (var key in people) {
+    people.forEach(function(key) {
         if (people[key].id != null && people[key].id == userId) {
             friendFound = true;
         }
@@ -72,7 +84,8 @@ function getFriends(userId) {
                 }
             }
         }
-    }
+    });
+
     if (friendFound) {
         return friendsListFiltered;
     }
