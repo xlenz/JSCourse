@@ -1,22 +1,19 @@
 'use strict'
 
-if (typeof Object.prototype.forEach === 'undefined') {
-    Object.prototype.forEach = function(callback) {
-        if (Array.isArray(this)) return Array.prototype.forEach.apply(this, Array.prototype.slice.call(arguments));
-        if (typeof callback != 'function') throw new TypeError();
+// http://jsperf.com/for-vs-for-in-within-object/2
 
-        var propNames = Object.getOwnPropertyNames(this);
-        for (var i = 0; i < propNames.length; i++) {
-            callback(propNames[i]);
-        }
-    }
+function forEachObj (obj, callback) {
+    var forEachObjName = 'forEachObj';
+    if (typeof callback != 'function') throw new Error(forEachObjName + ': callback is not a function.');
+    if (obj === undefined || obj === null) throw new Error(forEachObjName + ': object is undefined or null');
+    Object.keys(obj).forEach(function(key) {
+        callback(key);
+    });
 }
 
-function makeArray(__args, __startFrom) {
-    //make [].slice.call(args) more understandable
-    if (__startFrom === undefined) {
-        __startFrom = 0;
-    }
+//make [].slice.call(args) more understandable
+function argsToArray(__args, __startFrom) {
+    if (__startFrom === undefined) __startFrom = 0;
     return Array.prototype.slice.call(__args, __startFrom);
 }
 
@@ -30,7 +27,7 @@ var App = function () {
         },
 
         setListeners: function () {
-            makeArray(this.nodes).forEach(function (n) {
+            argsToArray(this.nodes).forEach(function (n) {
                 n.onclick = this.onClick.myBind(this);
             }, this);
         },
@@ -49,9 +46,9 @@ var App = function () {
 if (typeof Function.prototype.myBind === 'undefined') {
     Function.prototype.myBind = function (context) {
         var __this = this;
-        var __args = makeArray(arguments, 1);
+        var __args = argsToArray(arguments, 1);
         return function() {
-            __this.apply(context, __args.concat(makeArray(arguments)));
+            __this.apply(context, __args.concat(argsToArray(arguments)));
         };
     };
 }
@@ -61,7 +58,7 @@ if (typeof Function.prototype.myBind === 'undefined') {
 //task #2
 
 var Person = function(args) {
-    args.forEach(function(key) {
+    forEachObj(args, function(key) {
         if (args.hasOwnProperty(key)) {
             this[key] = args[key];
         }
@@ -89,7 +86,7 @@ var PersonExtended = function (args) {
             }
         }
     };
-    args.forEach(function(key) {
+    forEachObj(args, function(key) {
         if (args.hasOwnProperty(key) && typeof args[key] !== 'function') {
             var capitalizedProperty = key.substring(0, 1).toUpperCase() + key.substring(1);
             var getterName = 'get' + capitalizedProperty;

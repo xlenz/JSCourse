@@ -46,22 +46,19 @@ function getObject (path, obj) {
     return obj;
 }
 
-if (typeof Object.prototype.forEach === 'undefined') {
-    Object.prototype.forEach = function(callback) {
-        if (Array.isArray(this)) return Array.prototype.forEach.apply(this, Array.prototype.slice.call(arguments));
-        if (typeof callback != 'function') throw new TypeError();
-
-        var propNames = Object.getOwnPropertyNames(this);
-        for (var i = 0; i < propNames.length; i++) {
-            callback(propNames[i]);
-        }
-    }
+function forEachObj (obj, callback) {
+    var forEachObjName = 'forEachObj';
+    if (typeof callback != 'function') throw new Error(forEachObjName + ': callback is not a function.');
+    if (obj === undefined || obj === null) throw new Error(forEachObjName + ': object is undefined or null');
+    Object.keys(obj).forEach(function(key) {
+        callback(key);
+    });
 }
 
 function copyObj(o) {
     var copy = Object.create( Object.getPrototypeOf(o) );
 
-    o.forEach(function(key) {
+    forEachObj(o, function(key) {
         var desc = Object.getOwnPropertyDescriptor(o, key);
         Object.defineProperty(copy, key, desc);
     });
@@ -72,7 +69,7 @@ function copyObj(o) {
 function getFriends(userId) {
     var friendsListFiltered = [];
     var friendFound = false;
-    people.forEach(function(key) {
+    forEachObj(people, function(key) {
         if (people[key].id != null && people[key].id == userId) {
             friendFound = true;
         }

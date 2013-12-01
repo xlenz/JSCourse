@@ -1,12 +1,23 @@
+table {
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
 table, td {
     border: 2px solid grey;
-    height: 20px;
 }
 
 table td {
     width: 120px;
+    height: 20px;
 }
 
+table.highlight,
 table td.highlight {
     border-color: #00cc00;
+}
+
+table tr.highlight {
+    outline: 2px solid #00cc00;
 }
