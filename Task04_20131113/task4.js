@@ -48,8 +48,12 @@ function getObject (path, obj) {
 
 function forEachObj (obj, callback) {
     var forEachObjName = 'forEachObj';
-    if (typeof callback != 'function') throw new Error(forEachObjName + ': callback is not a function.');
-    if (obj === undefined || obj === null) throw new Error(forEachObjName + ': object is undefined or null');
+    if (typeof callback != 'function') {
+        throw new Error(forEachObjName + ': callback is not a function.');
+    }
+    if (obj === undefined || obj === null) {
+        throw new Error(forEachObjName + ': object is undefined or null');
+    }
     Object.keys(obj).forEach(function(key) {
         callback(key);
     });

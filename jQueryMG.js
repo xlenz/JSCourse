@@ -1,3 +1,4 @@
+/*
 var jQueryMG = function (selector, element) {
     init: {
         if (element != null) {
@@ -10,3 +11,4 @@ var jQueryMG = function (selector, element) {
 };
 
 $$ = jQueryMG.init();
+*/

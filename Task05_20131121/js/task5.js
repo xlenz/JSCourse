@@ -4,8 +4,12 @@
 
 function forEachObj (obj, callback) {
     var forEachObjName = 'forEachObj';
-    if (typeof callback != 'function') throw new Error(forEachObjName + ': callback is not a function.');
-    if (obj === undefined || obj === null) throw new Error(forEachObjName + ': object is undefined or null');
+    if (typeof callback != 'function') {
+        throw new Error(forEachObjName + ': callback is not a function.');
+    }
+    if (obj === undefined || obj === null) {
+        throw new Error(forEachObjName + ': object is undefined or null');
+    }
     Object.keys(obj).forEach(function(key) {
         callback(key);
     });
@@ -13,7 +17,9 @@ function forEachObj (obj, callback) {
 
 //make [].slice.call(args) more understandable
 function argsToArray(__args, __startFrom) {
-    if (__startFrom === undefined) __startFrom = 0;
+    if (__startFrom === undefined) {
+        __startFrom = 0;
+    }
     return Array.prototype.slice.call(__args, __startFrom);
 }
 

@@ -17,17 +17,27 @@ var tableTraversing = {
         var currentEl = e.target;
 
         this.clearHighlightedItems();
-        if (currentEl.tagName.toLowerCase() === 'table') this.selectedEl = currentEl.firstElementChild;
-        else this.selectedEl = currentEl;
+        if (currentEl.tagName.toLowerCase() === 'table') {
+            this.selectedEl = currentEl.firstElementChild;
+        }
+        else {
+            this.selectedEl = currentEl;
+        }
         this.focused = true;
         this.highlightToggle(currentEl);
     }
 
     ,onKeyUp: function (e) {
-        if (!this.focused) return;
+        if (!this.focused) {
+            return;
+        }
         if (e.keyCode === 13) {//enter
-            if (e.shiftKey) this.insertColumn();
-            else this.addRowOrColumn();
+            if (e.shiftKey) {
+                this.insertColumn();
+            }
+            else {
+                this.addRowOrColumn();
+            }
         }
         if (e.keyCode === 46 && !e.shiftKey) {//delete
             this.deleteRowOrColumn();
@@ -59,8 +69,12 @@ var tableTraversing = {
 
         if (this.selectedEl.tagName.toLowerCase() === 'td') {
             this.highlightToggle(this.selectedEl);
-            if (prevSibling) this.selectedEl = prevSibling;
-            else this.selectedEl = this.selectedEl.parentNode;
+            if (prevSibling) {
+                this.selectedEl = prevSibling;
+            }
+            else {
+                this.selectedEl = this.selectedEl.parentNode;
+            }
             this.highlightToggle(this.selectedEl);
         }
         else if (this.selectedEl.tagName.toLowerCase() === 'tr') {
@@ -76,8 +90,12 @@ var tableTraversing = {
         this.highlightToggle(this.selectedEl);
 
         if (currentTag === 'td') {
-            if (nextSibling) this.selectedEl = nextSibling;
-            else this.selectedEl = this.selectedEl.parentNode.firstElementChild;
+            if (nextSibling) {
+                this.selectedEl = nextSibling;
+            }
+            else {
+                this.selectedEl = this.selectedEl.parentNode.firstElementChild;
+            }
         }
         else if (currentTag === 'tbody') {
             if (this.selectedEl.rows.length > 0) {
@@ -102,11 +120,15 @@ var tableTraversing = {
         if (parent.tagName.toLowerCase() === 'table') return;
 
         if (parentUpSibling || upSibling) {
-            if (currentTag === 'td' && parentUpSibling.children.length > 0) {
+            if (currentTag === 'td' && parentUpSibling && parentUpSibling.children.length > 0) {
                 var childs = parentUpSibling.children;
                 this.highlightToggle(this.selectedEl);
-                if (childs[selectedIndex] !== undefined) this.selectedEl = childs[selectedIndex];
-                else this.selectedEl = childs[childs.length - 1];
+                if (childs[selectedIndex] !== undefined) {
+                    this.selectedEl = childs[selectedIndex];
+                }
+                else {
+                    this.selectedEl = childs[childs.length - 1];
+                }
                 this.highlightToggle(this.selectedEl);
             }
             else if (currentTag === 'tr' && upSibling != undefined) {
@@ -118,8 +140,12 @@ var tableTraversing = {
         else {
             this.highlightToggle(this.selectedEl);
             this.selectedEl = parent;
-            if (parent.tagName.toLowerCase() === 'tbody') this.highlightToggle(parent.parentNode);
-            else this.highlightToggle(this.selectedEl);
+            if (parent.tagName.toLowerCase() === 'tbody') {
+                this.highlightToggle(parent.parentNode);
+            }
+            else {
+                this.highlightToggle(this.selectedEl);
+            }
         }
     }
     ,downAction: function () {
@@ -131,8 +157,12 @@ var tableTraversing = {
         if (currentTag === 'td' && parentDownSibling && parentDownSibling.children.length > 0) {
             var childs = parentDownSibling.children;
             this.highlightToggle(this.selectedEl);
-            if (childs[selectedIndex] !== undefined) this.selectedEl = childs[selectedIndex];
-            else this.selectedEl = childs[childs.length - 1];
+            if (childs[selectedIndex] !== undefined) {
+                this.selectedEl = childs[selectedIndex];
+            }
+            else {
+                this.selectedEl = childs[childs.length - 1];
+            }
             this.highlightToggle(this.selectedEl);
         }
         else if (currentTag === 'tr' && downSibling) {
@@ -149,18 +179,28 @@ var tableTraversing = {
 
     ,deleteRowOrColumn: function () {
         var currentTag = this.selectedEl.tagName.toLowerCase();
-        if (currentTag !== 'tr' && currentTag !== 'td') return;
+        if (currentTag !== 'tr' && currentTag !== 'td') {
+            return;
+        }
 
         var nextSiblingColumn = this.selectedEl.nextElementSibling;
         var prevSiblingColumn = this.selectedEl.previousElementSibling;
         var parent = this.selectedEl.parentNode;
         this.selectedEl.parentNode.removeChild(this.selectedEl);
         if (nextSiblingColumn) this.selectedEl = nextSiblingColumn;
-        else if (prevSiblingColumn) this.selectedEl = prevSiblingColumn;
-        else this.selectedEl = parent;
+        else if (prevSiblingColumn) {
+            this.selectedEl = prevSiblingColumn;
+        }
+        else {
+            this.selectedEl = parent;
+        }
 
-        if (this.selectedEl.tagName.toLowerCase() === 'tbody') this.highlightToggle(this.selectedEl.parentNode);
-        else this.highlightToggle(this.selectedEl);
+        if (this.selectedEl.tagName.toLowerCase() === 'tbody') {
+            this.highlightToggle(this.selectedEl.parentNode);
+        }
+        else {
+            this.highlightToggle(this.selectedEl);
+        }
     }
 
     ,addRowOrColumn: function () {
@@ -186,18 +226,25 @@ var tableTraversing = {
     ,clearHighlightedItems: function (callback) {
         var highlightedElems = document.querySelectorAll('.' + this.highlightClass),
               len = highlightedElems.length;
-        if (len == 0) return;
+        if (len == 0) {
+            return;
+        }
         for (var i = 0; i < len; i++) {
             this.highlightToggle(highlightedElems[i]);
         }
     }
 
     ,highlightToggle: function (_element) {
-        if (!_element) return;
-        if ( _element.classList.contains(this.highlightClass) ) _element.classList.remove(this.highlightClass);
-        else _element.classList.add(this.highlightClass);
+        if (!_element) {
+            return;
+        }
+        if ( _element.classList.contains(this.highlightClass) ) {
+            _element.classList.remove(this.highlightClass);
+        }
+        else {
+            _element.classList.add(this.highlightClass);
+        }
     }
 };
 
 tableTraversing.init();
-
