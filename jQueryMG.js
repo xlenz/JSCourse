@@ -1,14 +1,19 @@
-/*
-var jQueryMG = function (selector, element) {
-    init: {
-        if (element != null) {
-            this.el = element.querySelectorAll(selector);
-        }
-        else {
-            this.el = document.querySelectorAll(selector);
-        }
+
+var $$ = function (selector, element) {
+    if (element != null) {
+        this.el = element.querySelectorAll(selector);
     }
+    else {
+        this.el = document.querySelectorAll(selector);
+    }
+    return this.el;
 };
 
-$$ = jQueryMG.init();
-*/
+$$.prototype.width = function () {
+    if (this.el == null) {
+        return null;
+    }
+    else {
+        return this.el;
+    }
+};
