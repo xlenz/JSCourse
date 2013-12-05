@@ -93,7 +93,7 @@ var PersonExtended = function (args) {
         }
     };
     forEachObj(args, function(key) {
-        if (args.hasOwnProperty(key) && typeof args[key] !== 'function') {
+        if (typeof args[key] !== 'function') {
             var capitalizedProperty = key.substring(0, 1).toUpperCase() + key.substring(1);
             var getterName = 'get' + capitalizedProperty;
             var setterName = 'set' + capitalizedProperty;
