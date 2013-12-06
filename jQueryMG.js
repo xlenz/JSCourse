@@ -14,7 +14,7 @@ var $$ = function (selector, element) {
         }
         if (val !== null && val !== undefined) {
             if (val === '') {
-                removeStyle('width');
+                elems.removeStyle('width');
             }
             else if (val === 'auto') {
                 setStyle('width', 'auto');
@@ -42,20 +42,52 @@ var $$ = function (selector, element) {
             return (cmpWidth - cmpPadRight - cmpPadLeft) + 'px';
         }
     };
+
+    elems.delegate = function (selector, eventType, handler) {
+        if (elems === null || elems === undefined || elems.length === 0) {
+            return null;
+        }
+        if (typeof handler != 'function') {
+            throw new Error('delegate: handler is not a function.');
+        }
+        if (typeof selector != 'string' || typeof eventType != 'string') {
+            throw new Error('delegate: selector and eventType should be a string.');
+        }
+        elems.each(function(key) {
+            var selElems = elems[key].querySelectorAll(selector);
+            $$.each(selElems, function(num) {
+                if (!isNaN(num)) {
+                    selElems[num].addEventListener(eventType, handler);
+                }
+            });
+        });
+        return elems;
+    };
+
+    elems.removeStyle = function (style) {
+        elems.each(function(key) {
+            elems[key].style.removeProperty(style);
+        });
+    }
+
+    elems.each = function (callback) {
+        if (typeof callback != 'function') {
+            throw new Error('each: callback is not a function.');
+        }
+        $$.each(elems, function(key) {
+            if (!isNaN(key)) {
+                callback(key);
+            }
+        });
+        return elems;
+    };
+
     function setStyle(prop, value) {
-        $$.each(elems, function(key) {
-            if (!isNaN(key)) {
-                elems[key].style[prop] = value;
-            }
+        elems.each(function(key) {
+            elems[key].style[prop] = value;
         });
     }
-    function removeStyle(style) {
-        $$.each(elems, function(key) {
-            if (!isNaN(key)) {
-                elems[key].style.removeProperty(style);
-            }
-        });
-    }
+
     return elems;
 };
 
