@@ -17,9 +17,6 @@ function forEachObj (obj, callback) {
 
 //make [].slice.call(args) more understandable
 function argsToArray(__args, __startFrom) {
-    if (__startFrom === undefined) {
-        __startFrom = 0;
-    }
     return Array.prototype.slice.call(__args, __startFrom);
 }
 
@@ -54,7 +51,7 @@ if (typeof Function.prototype.myBind === 'undefined') {
         var __this = this;
         var __args = argsToArray(arguments, 1);
         return function() {
-            __this.apply(context, __args.concat(argsToArray(arguments)));
+            return __this.apply(context, __args.concat(argsToArray(arguments)));
         };
     };
 }
@@ -72,7 +69,7 @@ var Person = function(args) {
 };
 
 var p = new Person({
-    name: 'Jack'
+      name: 'Jack'
     , age: 10
     , jump: function() { return 'My name is ' + this.name + ' and I can jump.'; }
 });
@@ -86,7 +83,7 @@ console.log(p.jump()); // “My name is Jack and I can jump.”
 var PersonExtended = function (args) {
     var getSet = function(val) {
         return {
-            get: function() { return val; }
+              get: function() { return val; }
             , set: function(newVal) {
                 val = newVal;
             }
@@ -98,6 +95,8 @@ var PersonExtended = function (args) {
             var getterName = 'get' + capitalizedProperty;
             var setterName = 'set' + capitalizedProperty;
             var keyVal = getSet(args[key]);
+
+            console.log(this);
 
             this[getterName] = keyVal.get;
             this[setterName] = keyVal.set;

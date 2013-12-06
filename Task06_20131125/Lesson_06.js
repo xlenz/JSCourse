@@ -1,5 +1,5 @@
 var tableTraversing = {
-    init: function () {
+      init: function () {
         var initContext = this;
         this.highlightClass = 'highlight';
 
@@ -13,7 +13,7 @@ var tableTraversing = {
         }).bind(this)
     }
 
-    ,onClick: function (e) {
+    , onClick: function (e) {
         var currentEl = e.target;
 
         this.clearHighlightedItems();
@@ -27,7 +27,7 @@ var tableTraversing = {
         this.highlightToggle(currentEl);
     }
 
-    ,onKeyUp: function (e) {
+    , onKeyUp: function (e) {
         if (!this.focused) {
             return;
         }
@@ -64,7 +64,7 @@ var tableTraversing = {
         }
     }
 
-    ,leftArrowAction: function () {
+    , leftArrowAction: function () {
         var prevSibling = this.selectedEl.previousElementSibling;
 
         if (this.selectedEl.tagName.toLowerCase() === 'td') {
@@ -83,7 +83,8 @@ var tableTraversing = {
             this.highlightToggle(this.selectedEl.parentNode);
         }
     }
-    ,rightArrowAction: function () {
+
+    , rightArrowAction: function () {
         var nextSibling = this.selectedEl.nextElementSibling,
               currentTag = this.selectedEl.tagName.toLowerCase();
 
@@ -110,7 +111,8 @@ var tableTraversing = {
         }
         this.highlightToggle(this.selectedEl);
     }
-    ,upAction: function () {
+
+    , upAction: function () {
         var selectedIndex = this.selectedEl.cellIndex,
               parent = this.selectedEl.parentNode,
               parentUpSibling = parent.previousElementSibling,
@@ -148,7 +150,8 @@ var tableTraversing = {
             }
         }
     }
-    ,downAction: function () {
+
+    , downAction: function () {
         var selectedIndex = this.selectedEl.cellIndex,
               parentDownSibling = this.selectedEl.parentNode.nextElementSibling,
               downSibling = this.selectedEl.nextElementSibling,
@@ -177,7 +180,7 @@ var tableTraversing = {
         }
     }
 
-    ,deleteRowOrColumn: function () {
+    , deleteRowOrColumn: function () {
         var currentTag = this.selectedEl.tagName.toLowerCase();
         if (currentTag !== 'tr' && currentTag !== 'td') {
             return;
@@ -203,7 +206,7 @@ var tableTraversing = {
         }
     }
 
-    ,addRowOrColumn: function () {
+    , addRowOrColumn: function () {
         var currentTag = this.selectedEl.tagName.toLowerCase();
 
         if (currentTag === 'td') {
@@ -217,13 +220,13 @@ var tableTraversing = {
         }
     }
 
-    ,insertColumn: function () {
+    , insertColumn: function () {
         if (this.selectedEl.tagName.toLowerCase() === 'tr') {
             this.selectedEl.insertCell();
         }
     }
 
-    ,clearHighlightedItems: function (callback) {
+    , clearHighlightedItems: function (callback) {
         var highlightedElems = document.querySelectorAll('.' + this.highlightClass),
               len = highlightedElems.length;
         if (len == 0) {
@@ -234,7 +237,7 @@ var tableTraversing = {
         }
     }
 
-    ,highlightToggle: function (_element) {
+    , highlightToggle: function (_element) {
         if (!_element) {
             return;
         }
