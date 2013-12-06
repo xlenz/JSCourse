@@ -1,7 +1,7 @@
 
 var $$ = function (selector, element) {
     var elems = {};
-    if (element != null) {
+    if (element !== null && element !== undefined) {
         elems = element.querySelectorAll(selector);
     }
     else {
@@ -9,21 +9,21 @@ var $$ = function (selector, element) {
     }
 
     elems.width = function (val) {
-        if (elems == null || elems.length === 0) {
+        if (elems === null || elems === undefined || elems.length === 0) {
             return null;
         }
-        if (val != null) {
+        if (val !== null && val !== undefined) {
             if (val === '') {
                 removeStyle('width');
             }
             else if (val === 'auto') {
                 setStyle('width', 'auto');
             }
-            else if ( val == parseInt(val) ) {
+            else if ( val == parseInt(val, 10) ) {
                 setStyle('width', val + 'px');
             }
-            else if (!isNaN(parseInt(val))) {
-                var intVal = parseInt(val);
+            else if (!isNaN(parseInt(val, 10))) {
+                var intVal = parseInt(val, 10);
                 var ext = val.slice(-2);
                 var perc = val.slice(-1);
                 if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
@@ -36,9 +36,9 @@ var $$ = function (selector, element) {
         }
         else {
             var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
-            var cmpWidth = parseInt(cmpStyle.getPropertyValue('width'));
-            var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'));
-            var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'));
+            var cmpWidth = parseInt(cmpStyle.getPropertyValue('width'), 10);
+            var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
+            var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
             return (cmpWidth - cmpPadRight - cmpPadLeft) + 'px';
         }
     };
@@ -70,5 +70,5 @@ $$.each = function (obj, callback) {
     Object.keys(obj).forEach(function(key) {
         callback(key);
     });
-}
+};
 
