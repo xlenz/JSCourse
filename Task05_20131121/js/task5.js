@@ -61,11 +61,13 @@ if (typeof Function.prototype.myBind === 'undefined') {
 //task #2
 
 var Person = function(args) {
+    var _person = {};
     forEachObj(args, function(key) {
         if (args.hasOwnProperty(key)) {
-            this[key] = args[key];
+            _person[key] = args[key];
         }
     });
+    return _person;
 };
 
 var p = new Person({
@@ -81,6 +83,7 @@ console.log(p.jump()); // “My name is Jack and I can jump.”
 //task #3
 
 var PersonExtended = function (args) {
+    var _personExtended = {};
     var getSet = function(val) {
         return {
               get: function() { return val; }
@@ -96,15 +99,14 @@ var PersonExtended = function (args) {
             var setterName = 'set' + capitalizedProperty;
             var keyVal = getSet(args[key]);
 
-            console.log(this);
-
-            this[getterName] = keyVal.get;
-            this[setterName] = keyVal.set;
+            _personExtended[getterName] = keyVal.get;
+            _personExtended[setterName] = keyVal.set;
         }
         else if (typeof args[key] === 'function') {
-            this[key] = args[key].bind(args);
+            _personExtended[key] = args[key].bind(args);
         }
     });
+    return _personExtended;
 };
 
 

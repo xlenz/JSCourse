@@ -1,7 +1,10 @@
 
 var $$ = function (selector, element) {
-    var elems = {};
-    if (element !== null && element !== undefined) {
+    var elems = [];
+    if (selector !== null && typeof selector === 'object') {
+        elems.push(selector);
+    }
+    else if (element !== null && element !== undefined) {
         elems = element.querySelectorAll(selector);
     }
     else {
@@ -36,10 +39,22 @@ var $$ = function (selector, element) {
         }
         else {
             var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
-            var cmpWidth = parseInt(cmpStyle.getPropertyValue('width'), 10);
+            var clientWidth = elems[0].clientWidth;
             var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
             var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
-            return (cmpWidth - cmpPadRight - cmpPadLeft) + 'px';
+            return (clientWidth - cmpPadLeft - cmpPadRight);
+        }
+    };
+
+    elems.height = function (val) {
+        if (elems === null || elems === undefined || elems.length === 0) {
+            return null;
+        }
+        if (val !== null && val !== undefined) {
+            //
+        }
+        else {
+            //
         }
     };
 
@@ -53,8 +68,8 @@ var $$ = function (selector, element) {
         if (typeof selector != 'string' || typeof eventType != 'string') {
             throw new Error('delegate: selector and eventType should be a string.');
         }
-        elems.each(function(key) {
-            var selElems = elems[key].querySelectorAll(selector);
+        elems.each(function(key, value) {
+            var selElems = value.querySelectorAll(selector);
             $$.each(selElems, function(num) {
                 if (!isNaN(num)) {
                     selElems[num].addEventListener(eventType, handler);
@@ -65,8 +80,8 @@ var $$ = function (selector, element) {
     };
 
     elems.removeStyle = function (style) {
-        elems.each(function(key) {
-            elems[key].style.removeProperty(style);
+        elems.each(function(key, value) {
+            value.style.removeProperty(style);
         });
     }
 
@@ -76,7 +91,7 @@ var $$ = function (selector, element) {
         }
         $$.each(elems, function(key) {
             if (!isNaN(key)) {
-                callback(key);
+                callback(key, elems[key]);
             }
         });
         return elems;
