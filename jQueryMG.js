@@ -34,73 +34,11 @@ function MyArray (arr) {
 
 MyArray.prototype = {
       width: function (val) {
-        var elems = this;
-        if (this.length === 0) {
-            return null;
-        }
-        if (val !== undefined && val !== null) {
-            if (val === '') {
-                elems.removeStyle('width');
-            }
-            else if (val === 'auto') {
-                this.setStyle('width', 'auto');
-            }
-            else if ( val == parseInt(val, 10) ) {
-                this.setStyle('width', val + 'px');
-            }
-            else if (!isNaN(parseInt(val, 10))) {
-                var intVal = parseInt(val, 10);
-                var ext = val.slice(-2);
-                var perc = val.slice(-1);
-                if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
-                    || (perc === '%' && (intVal + perc) === val) ) {
-                    this.setStyle('width', val);
-                }
-            }
-
-            return elems;
-        }
-        else {
-            var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
-            var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
-            var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
-            return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
-        }
-    }
+        return tools.dimensions(this, val, 'width', 'left', 'right');
+      }
 
     , height: function (val) {
-        var elems = this;
-        if (this.length === 0) {
-            return null;
-        }
-        if (val !== undefined && val !== null) {
-            if (val === '') {
-                elems.removeStyle('height');
-            }
-            else if (val === 'auto') {
-                this.setStyle('height', 'auto');
-            }
-            else if ( val == parseInt(val, 10) ) {
-                this.setStyle('height', val + 'px');
-            }
-            else if (!isNaN(parseInt(val, 10))) {
-                var intVal = parseInt(val, 10);
-                var ext = val.slice(-2);
-                var perc = val.slice(-1);
-                if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
-                    || (perc === '%' && (intVal + perc) === val) ) {
-                    this.setStyle('height', val);
-                }
-            }
-
-            return elems;
-        }
-        else {
-            var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
-            var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
-            var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
-            return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
-        }
+        return tools.dimensions(this, val, 'height', 'top', 'bottom');
     }
 
     , delegate: function (selector, eventType, handler) {
@@ -151,3 +89,46 @@ MyArray.prototype = {
         return elems;
     }
 }
+
+var tools = {
+    dimensions: function (elems, val, dimension) {
+        if (elems.length === 0) {
+            return null;
+        }
+        if (val !== undefined && val !== null) {
+            if (val === '') {
+                elems.removeStyle(dimension);
+            }
+            else if (val === 'auto') {
+                elems.setStyle(dimension, 'auto');
+            }
+            else if ( val == parseInt(val, 10) ) {
+                elems.setStyle(dimension, val + 'px');
+            }
+            else if (!isNaN(parseInt(val, 10))) {
+                var intVal = parseInt(val, 10);
+                var ext = val.slice(-2);
+                var perc = val.slice(-1);
+                if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
+                    || (perc === '%' && (intVal + perc) === val) ) {
+                    elems.setStyle(dimension, val);
+                }
+            }
+
+            return elems;
+        }
+        else {
+            var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
+            if (dimension === 'height') {
+                var cmpPadTop = parseInt(cmpStyle.getPropertyValue('padding-top'), 10);
+                var cmpPadBot = parseInt(cmpStyle.getPropertyValue('padding-bottom'), 10);
+                return (elems[0].clientHeight - cmpPadTop - cmpPadBot);
+            }
+            if (dimension === 'width') {
+                var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
+                var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
+                return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
+            }
+        }
+    }
+};
