@@ -11,11 +11,13 @@ var $$ = function (selector, element) {
         elems = document.querySelectorAll(selector);
     }
 
+    var length = elems.length;
+
     elems.width = function (val) {
-        if (elems === null || elems === undefined || elems.length === 0) {
+        if (length === 0) {
             return null;
         }
-        if (val !== null && val !== undefined) {
+        if (val !== undefined && val !== null) {
             if (val === '') {
                 elems.removeStyle('width');
             }
@@ -39,27 +41,48 @@ var $$ = function (selector, element) {
         }
         else {
             var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
-            var clientWidth = elems[0].clientWidth;
             var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
             var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
-            return (clientWidth - cmpPadLeft - cmpPadRight);
+            return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
         }
     };
 
     elems.height = function (val) {
-        if (elems === null || elems === undefined || elems.length === 0) {
+        if (length === 0) {
             return null;
         }
-        if (val !== null && val !== undefined) {
-            //
+        if (val !== undefined && val !== null) {
+            if (val === '') {
+                elems.removeStyle('height');
+            }
+            else if (val === 'auto') {
+                setStyle('height', 'auto');
+            }
+            else if ( val == parseInt(val, 10) ) {
+                setStyle('height', val + 'px');
+            }
+            else if (!isNaN(parseInt(val, 10))) {
+                var intVal = parseInt(val, 10);
+                var ext = val.slice(-2);
+                var perc = val.slice(-1);
+                if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
+                    || (perc === '%' && (intVal + perc) === val) ) {
+                    setStyle('height', val);
+                }
+            }
+
+            return elems;
         }
         else {
-            //
+            var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
+            var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
+            var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
+            return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
         }
     };
 
     elems.delegate = function (selector, eventType, handler) {
-        if (elems === null || elems === undefined || elems.length === 0) {
+        if (length === 0) {
             return null;
         }
         if (typeof handler != 'function') {
@@ -68,13 +91,12 @@ var $$ = function (selector, element) {
         if (typeof selector != 'string' || typeof eventType != 'string') {
             throw new Error('delegate: selector and eventType should be a string.');
         }
-        elems.each(function(key, value) {
-            var selElems = value.querySelectorAll(selector);
-            $$.each(selElems, function(num) {
-                if (!isNaN(num)) {
-                    selElems[num].addEventListener(eventType, handler);
-                }
-            });
+        elems.each(function(key, el) {
+            var selElems = el.querySelectorAll(selector);
+            var seLength = selElems.length;
+            for (var i = 0; i < seLength; i++) {
+                selElems[i].addEventListener(eventType, handler);
+            }
         });
         return elems;
     };
@@ -89,17 +111,15 @@ var $$ = function (selector, element) {
         if (typeof callback != 'function') {
             throw new Error('each: callback is not a function.');
         }
-        $$.each(elems, function(key) {
-            if (!isNaN(key)) {
-                callback(key, elems[key]);
-            }
-        });
+        for (var i = 0; i < length; i++) {
+            callback(i, elems[i]);
+        }
         return elems;
     };
 
     function setStyle(prop, value) {
-        elems.each(function(key) {
-            elems[key].style[prop] = value;
+        elems.each(function(key, val) {
+            val.style[prop] = value;
         });
     }
 
@@ -107,12 +127,11 @@ var $$ = function (selector, element) {
 };
 
 $$.each = function (obj, callback) {
-    var forEachObjName = '$$.each';
     if (typeof callback != 'function') {
-        throw new Error(forEachObjName + ': callback is not a function.');
+        throw new Error('$$.each: callback is not a function.');
     }
     if (obj === undefined || obj === null) {
-        throw new Error(forEachObjName + ': object is undefined or null');
+        throw new Error('$$.each: object is undefined or null');
     }
     Object.keys(obj).forEach(function(key) {
         callback(key);
