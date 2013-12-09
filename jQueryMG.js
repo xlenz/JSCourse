@@ -10,11 +10,32 @@ var $$ = function (selector, element) {
     else {
         elems = document.querySelectorAll(selector);
     }
+    return new MyArray(elems);
+};
 
-    var length = elems.length;
+$$.each = function (obj, callback) {
+    if (typeof callback != 'function') {
+        throw new Error('$$.each: callback is not a function.');
+    }
+    if (obj === undefined || obj === null) {
+        throw new Error('$$.each: object is undefined or null');
+    }
+    Object.keys(obj).forEach(function(key) {
+        callback(key);
+    });
+};
 
-    elems.width = function (val) {
-        if (length === 0) {
+function MyArray (arr) {
+    $$.each(MyArray.prototype, function(key) {
+        arr[key] = MyArray.prototype[key];
+    });
+  return arr;
+}
+
+MyArray.prototype = {
+      width: function (val) {
+        var elems = this;
+        if (this.length === 0) {
             return null;
         }
         if (val !== undefined && val !== null) {
@@ -22,10 +43,10 @@ var $$ = function (selector, element) {
                 elems.removeStyle('width');
             }
             else if (val === 'auto') {
-                setStyle('width', 'auto');
+                this.setStyle('width', 'auto');
             }
             else if ( val == parseInt(val, 10) ) {
-                setStyle('width', val + 'px');
+                this.setStyle('width', val + 'px');
             }
             else if (!isNaN(parseInt(val, 10))) {
                 var intVal = parseInt(val, 10);
@@ -33,7 +54,7 @@ var $$ = function (selector, element) {
                 var perc = val.slice(-1);
                 if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
                     || (perc === '%' && (intVal + perc) === val) ) {
-                    setStyle('width', val);
+                    this.setStyle('width', val);
                 }
             }
 
@@ -45,10 +66,11 @@ var $$ = function (selector, element) {
             var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
             return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
         }
-    };
+    }
 
-    elems.height = function (val) {
-        if (length === 0) {
+    , height: function (val) {
+        var elems = this;
+        if (this.length === 0) {
             return null;
         }
         if (val !== undefined && val !== null) {
@@ -56,10 +78,10 @@ var $$ = function (selector, element) {
                 elems.removeStyle('height');
             }
             else if (val === 'auto') {
-                setStyle('height', 'auto');
+                this.setStyle('height', 'auto');
             }
             else if ( val == parseInt(val, 10) ) {
-                setStyle('height', val + 'px');
+                this.setStyle('height', val + 'px');
             }
             else if (!isNaN(parseInt(val, 10))) {
                 var intVal = parseInt(val, 10);
@@ -67,7 +89,7 @@ var $$ = function (selector, element) {
                 var perc = val.slice(-1);
                 if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
                     || (perc === '%' && (intVal + perc) === val) ) {
-                    setStyle('height', val);
+                    this.setStyle('height', val);
                 }
             }
 
@@ -79,10 +101,11 @@ var $$ = function (selector, element) {
             var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
             return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
         }
-    };
+    }
 
-    elems.delegate = function (selector, eventType, handler) {
-        if (length === 0) {
+    , delegate: function (selector, eventType, handler) {
+        var elems = this;
+        if (this.length === 0) {
             return null;
         }
         if (typeof handler != 'function') {
@@ -99,42 +122,32 @@ var $$ = function (selector, element) {
             }
         });
         return elems;
-    };
+    }
 
-    elems.removeStyle = function (style) {
+    , removeStyle: function (style) {
+        var elems = this;
         elems.each(function(key, value) {
             value.style.removeProperty(style);
         });
+        return elems;
     }
 
-    elems.each = function (callback) {
+    , each: function (callback) {
+        var elems = this;
         if (typeof callback != 'function') {
             throw new Error('each: callback is not a function.');
         }
-        for (var i = 0; i < length; i++) {
+        for (var i = 0; i < this.length; i++) {
             callback(i, elems[i]);
         }
         return elems;
-    };
+    }
 
-    function setStyle(prop, value) {
+    , setStyle: function (prop, value) {
+        var elems = this;
         elems.each(function(key, val) {
             val.style[prop] = value;
         });
+        return elems;
     }
-
-    return elems;
-};
-
-$$.each = function (obj, callback) {
-    if (typeof callback != 'function') {
-        throw new Error('$$.each: callback is not a function.');
-    }
-    if (obj === undefined || obj === null) {
-        throw new Error('$$.each: object is undefined or null');
-    }
-    Object.keys(obj).forEach(function(key) {
-        callback(key);
-    });
-};
-
+}
