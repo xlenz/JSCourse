@@ -1,3 +1,4 @@
+'use strict'
 
 var $$ = function (selector, element) {
     var elems = [];
@@ -25,6 +26,10 @@ $$.each = function (obj, callback) {
     });
 };
 
+$$.isWindow = function (obj) {
+    return obj && typeof obj === "object" && "setInterval" in obj;
+};
+
 function MyArray (arr) {
     $$.each(MyArray.prototype, function(key) {
         arr[key] = MyArray.prototype[key];
@@ -34,11 +39,11 @@ function MyArray (arr) {
 
 MyArray.prototype = {
       width: function (val) {
-        return tools.dimensions(this, val, 'width', 'left', 'right');
+        return tools.dimensions(this, val, 'width');
       }
 
     , height: function (val) {
-        return tools.dimensions(this, val, 'height', 'top', 'bottom');
+        return tools.dimensions(this, val, 'height');
     }
 
     , delegate: function (selector, eventType, handler) {
@@ -53,10 +58,12 @@ MyArray.prototype = {
             throw new Error('delegate: selector and eventType should be a string.');
         }
         elems.each(function(key, el) {
-            var selElems = el.querySelectorAll(selector);
-            var seLength = selElems.length;
-            for (var i = 0; i < seLength; i++) {
-                selElems[i].addEventListener(eventType, handler);
+            if (el.querySelectorAll) {
+                var selElems = el.querySelectorAll(selector);
+                var seLength = selElems.length;
+                for (var i = 0; i < seLength; i++) {
+                    selElems[i].addEventListener(eventType, handler);
+                }
             }
         });
         return elems;
@@ -65,7 +72,9 @@ MyArray.prototype = {
     , removeStyle: function (style) {
         var elems = this;
         elems.each(function(key, value) {
-            value.style.removeProperty(style);
+            if (value.style) {
+                value.style.removeProperty(style);
+            }
         });
         return elems;
     }
@@ -84,14 +93,16 @@ MyArray.prototype = {
     , setStyle: function (prop, value) {
         var elems = this;
         elems.each(function(key, val) {
-            val.style[prop] = value;
+            if (val.style) {
+                val.style[prop] = value;
+            }
         });
         return elems;
     }
 }
 
 var tools = {
-    dimensions: function (elems, val, dimension) {
+      dimensions: function (elems, val, dimension) {
         if (elems.length === 0) {
             return null;
         }
@@ -118,17 +129,46 @@ var tools = {
             return elems;
         }
         else {
-            var cmpStyle = document.defaultView.getComputedStyle(elems[0], null);
+            var el = elems[0];
+            if (el.nodeType === document.nodeType) { //dim of html document
+                el = document.firstElementChild;
+            }
             if (dimension === 'height') {
-                var cmpPadTop = parseInt(cmpStyle.getPropertyValue('padding-top'), 10);
-                var cmpPadBot = parseInt(cmpStyle.getPropertyValue('padding-bottom'), 10);
-                return (elems[0].clientHeight - cmpPadTop - cmpPadBot);
+                if ($$.isWindow(el)) {
+                    return window.innerHeight;
+                }
+                var cmpPadTop = parseInt(this.getCmpStylePropValue(el, 'padding-top'), 10);
+                var cmpPadBot = parseInt(this.getCmpStylePropValue(el, 'padding-bottom'), 10);
+                if (isNaN(cmpPadTop) || isNaN(cmpPadBot)) {
+                    return null;
+                }
+                else {
+                    return (el.clientHeight - cmpPadTop - cmpPadBot);
+                }
             }
             if (dimension === 'width') {
-                var cmpPadLeft = parseInt(cmpStyle.getPropertyValue('padding-left'), 10);
-                var cmpPadRight = parseInt(cmpStyle.getPropertyValue('padding-right'), 10);
-                return (elems[0].clientWidth - cmpPadLeft - cmpPadRight);
+                if ($$.isWindow(el)) {
+                    return window.innerWidth;
+                }
+                var cmpPadLeft = parseInt(this.getCmpStylePropValue(el, 'padding-left'), 10);
+                var cmpPadRight = parseInt(this.getCmpStylePropValue(el, 'padding-right'), 10);
+                if (isNaN(cmpPadLeft) || isNaN(cmpPadRight)) {
+                    return null;
+                }
+                else {
+                    return (el.clientWidth - cmpPadLeft - cmpPadRight);
+                }
             }
+        }
+    }
+
+    , getCmpStylePropValue: function (el, property) {
+        var cmpStyle = document.defaultView.getComputedStyle(el, null);
+        if (cmpStyle === null) {
+            return null;
+        }
+        else {
+            return cmpStyle.getPropertyValue(property);
         }
     }
 };
