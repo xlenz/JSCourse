@@ -69,46 +69,35 @@ MyArray.prototype = {
         return elems;
     }
 
-    , css: function (property, value, time) {
-        var elems = this,
-              length = elems.length;
-        if (length === 0 || !elems[0].style) {
+    , css: function (property, value) {
+        var elems = this;
+        if (elems.length === 0 || !elems[0].style) {
             return null;
         }
         var el = elems[0];
-        if (value !== null && value !== undefined) {
-            if (property !== null && typeof property === 'object') {
-                $$.each(property, function(key) {
-                    if (property[key].length > 0) {
-                        elems.setStyle(key, property[key]);
-                    }
-                    else {
-                        elems.setStyle(key);
-                    }
-                });
-            }
-            else if (typeof property === 'string' && property.length > 0) {
-                if (value.length > 0) {
-                    elems.setStyle(property, value);
-                }
-                else {
-                    elems.removeStyle(property);
-                }
-            }
-            else {
-                return elems;
-            }
-        }
-        else {
+        if (value !== null && value !== undefined) { //set
             if (typeof property === 'string' && property.length > 0) {
-                return el.style[property];
+                (value.length > 0) ? tools.setStyle(elems, property, value) : tools.removeStyle(elems, property);
+            }
+            return elems;
+        }
+        else if (property !== null && typeof property === 'object' && value === undefined) { //set
+            $$.each(property, function(key) {
+                (property[key].length > 0) ? tools.setStyle(elems, key, property[key]) : tools.removeStyle(elems, key);
+            });
+            return elems;
+        }
+        else { //get
+            if (typeof property === 'string' && property.length > 0) {
+                return el.style[property] || tools.getCmpStylePropValue(el, property);
             }
             else if (Array.isArray(property) && property.length > 0) {
-                var propArr = [];
-                for (var i = 0; i < length; i++){
-                    propArr.push(elems[i]);
+                var propObj = {};
+                for (var i = 0; i < property.length; i++) {
+                    var prp = property[i];
+                    propObj[prp] = el.style[prp] || tools.getCmpStylePropValue(el, prp);
                 }
-                return propArr;
+                return propObj;
             }
             else {
                 return elems;
@@ -126,26 +115,6 @@ MyArray.prototype = {
         }
         return elems;
     }
-
-    , removeStyle: function (style) {
-        var elems = this;
-        elems.each(function(key, value) {
-            if (value.style) {
-                value.style.removeProperty(style);
-            }
-        });
-        return elems;
-    }
-
-    , setStyle: function (prop, value) {
-        var elems = this;
-        elems.each(function(key, val) {
-            if (val.style) {
-                val.style[prop] = value;
-            }
-        });
-        return elems;
-    }
 }
 
 var tools = {
@@ -155,13 +124,13 @@ var tools = {
         }
         if (val !== undefined && val !== null) {
             if (val === '') {
-                elems.removeStyle(dimension);
+                tools.removeStyle(elems, dimension);
             }
             else if (val === 'auto') {
-                elems.setStyle(dimension, 'auto');
+                tools.setStyle(elems, dimension, 'auto');
             }
             else if ( val == parseInt(val, 10) ) {
-                elems.setStyle(dimension, val + 'px');
+                tools.setStyle(elems, dimension, val + 'px');
             }
             else if (!isNaN(parseInt(val, 10))) {
                 var intVal = parseInt(val, 10);
@@ -169,7 +138,7 @@ var tools = {
                 var perc = val.slice(-1);
                 if ( ((ext === 'em' || ext === 'px') && (intVal + ext) === val)
                     || (perc === '%' && (intVal + perc) === val) ) {
-                    elems.setStyle(dimension, val);
+                    tools.setStyle(elems, dimension, val);
                 }
             }
 
@@ -186,12 +155,7 @@ var tools = {
                 }
                 var cmpPadTop = parseInt(this.getCmpStylePropValue(el, 'padding-top'), 10);
                 var cmpPadBot = parseInt(this.getCmpStylePropValue(el, 'padding-bottom'), 10);
-                if (isNaN(cmpPadTop) || isNaN(cmpPadBot)) {
-                    return null;
-                }
-                else {
-                    return (el.clientHeight - cmpPadTop - cmpPadBot);
-                }
+                return (isNaN(cmpPadTop) || isNaN(cmpPadBot)) ? null : (el.clientHeight - cmpPadTop - cmpPadBot);
             }
             if (dimension === 'width') {
                 if ($$.isWindow(el)) {
@@ -199,23 +163,31 @@ var tools = {
                 }
                 var cmpPadLeft = parseInt(this.getCmpStylePropValue(el, 'padding-left'), 10);
                 var cmpPadRight = parseInt(this.getCmpStylePropValue(el, 'padding-right'), 10);
-                if (isNaN(cmpPadLeft) || isNaN(cmpPadRight)) {
-                    return null;
-                }
-                else {
-                    return (el.clientWidth - cmpPadLeft - cmpPadRight);
-                }
+                return (isNaN(cmpPadLeft) || isNaN(cmpPadRight)) ? null : (el.clientWidth - cmpPadLeft - cmpPadRight);
             }
         }
     }
 
     , getCmpStylePropValue: function (el, property) {
         var cmpStyle = document.defaultView.getComputedStyle(el, null);
-        if (cmpStyle === null) {
-            return null;
-        }
-        else {
-            return cmpStyle.getPropertyValue(property);
-        }
+        return (cmpStyle === null) ? null : cmpStyle.getPropertyValue(property);
+    }
+
+    , setStyle: function (elems, prop, value) {
+        elems.each(function(key, val) {
+            if (val.style) {
+                val.style[prop] = value;
+            }
+        });
+        return elems;
+    }
+
+    , removeStyle: function (elems, style) {
+        elems.each(function(key, value) {
+            if (value.style) {
+                value.style.removeProperty(style);
+            }
+        });
+        return elems;
     }
 };
