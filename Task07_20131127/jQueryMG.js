@@ -69,14 +69,51 @@ MyArray.prototype = {
         return elems;
     }
 
-    , removeStyle: function (style) {
-        var elems = this;
-        elems.each(function(key, value) {
-            if (value.style) {
-                value.style.removeProperty(style);
+    , css: function (property, value, time) {
+        var elems = this,
+              length = elems.length;
+        if (length === 0 || !elems[0].style) {
+            return null;
+        }
+        var el = elems[0];
+        if (value !== null && value !== undefined) {
+            if (property !== null && typeof property === 'object') {
+                $$.each(property, function(key) {
+                    if (property[key].length > 0) {
+                        elems.setStyle(key, property[key]);
+                    }
+                    else {
+                        elems.setStyle(key);
+                    }
+                });
             }
-        });
-        return elems;
+            else if (typeof property === 'string' && property.length > 0) {
+                if (value.length > 0) {
+                    elems.setStyle(property, value);
+                }
+                else {
+                    elems.removeStyle(property);
+                }
+            }
+            else {
+                return elems;
+            }
+        }
+        else {
+            if (typeof property === 'string' && property.length > 0) {
+                return el.style[property];
+            }
+            else if (Array.isArray(property) && property.length > 0) {
+                var propArr = [];
+                for (var i = 0; i < length; i++){
+                    propArr.push(elems[i]);
+                }
+                return propArr;
+            }
+            else {
+                return elems;
+            }
+        }
     }
 
     , each: function (callback) {
@@ -87,6 +124,16 @@ MyArray.prototype = {
         for (var i = 0; i < this.length; i++) {
             callback(i, elems[i]);
         }
+        return elems;
+    }
+
+    , removeStyle: function (style) {
+        var elems = this;
+        elems.each(function(key, value) {
+            if (value.style) {
+                value.style.removeProperty(style);
+            }
+        });
         return elems;
     }
 
