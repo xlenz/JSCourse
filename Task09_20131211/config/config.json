@@ -1,0 +1,8 @@
+{
+    "host": ""
+    ,"port": 80
+
+    ,"root_html": "html/index.html"
+    ,"log_cfg_path": "config/log.config.json"
+	
+}
