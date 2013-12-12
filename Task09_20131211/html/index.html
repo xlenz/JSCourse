@@ -38,11 +38,11 @@
           <div class="column small-offset-1 small-10 large-offset-2 large-8">
             <h1>Login</h1>
             <form method="post" action="http://www.jscacourse.co.vu/login" class="small-8">
-              <input class="error" name="login" type="text" placeholder="enter your login">
-              <small class="error">Something went wrong!</small>
+              <input name="login" type="text" placeholder="enter your login">
+              <small class="hide">Something went wrong!</small>
               <input name="password" type="password" placeholder="enter your password">
               <input type="submit" value="Log me in" class="button">
-              <a href="/signup" class="button secondary">Sign me up</a>
+              <!--a href="/signup" class="button secondary">Sign me up</a-->
             </form>
           </div>
         </div>
@@ -53,8 +53,8 @@
         <div class="column small-offset-1 small-10 large-offset-2 large-8">
           <h1>Signup</h1>
           <form method="post" action="http://www.jscacourse.co.vu/signup" class="small-8">
-            <input class="error" name="login" type="text" placeholder="enter your login">
-            <small class="error">Something went wrong!</small>
+            <input name="login" type="text" placeholder="enter your login">
+            <small class="hide">Something went wrong!</small>
             <input name="email" type="email" placeholder="enter your email">
             <input name="password" type="password" placeholder="enter your new password">
             <input name="passwordConfirmation" type="password" placeholder="retype it">
@@ -87,7 +87,7 @@
     <hr>
     <div id="show-full">
       <div>
-      <img src="imgs/ajax-loader.gif" alt="AJAX loader animation">
+      <!--img src="imgs/ajax-loader.gif" alt="AJAX loader animation"-->
       <h2>Mr. Know-it-all, I</h2>
       <section>
         <h3>Location</h3>
@@ -103,7 +103,8 @@
       </div>
     </div>
     <!--[if lt IE 7]><script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script><script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script><![endif]-->
-   <script src="libs/jquery-2.0.3.min.js"></script>
+    <script src="libs/jquery-2.0.3.min.js"></script>
+    <script src="js/jAjax.js"></script>
   </body>
 </html>
 
