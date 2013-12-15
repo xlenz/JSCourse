@@ -22,6 +22,9 @@
       <li class="name">
         <h1><a href="#">Hot Date!</a></h1>
       </li>
+      <li class="name">
+        <h1><a href="">Github</a></h1>
+      </li>
     </ul>
 
     <section class="top-bar-section">
@@ -30,6 +33,9 @@
         <li><a href="#signup">Signup</a></li>
         <li><a href="#list">List my dates!</a></li>
       </ul>
+      <a class="right" href="https://github.com/xlenz/JSCourse/blob/master/Task09_20131211/web/js/jAjax.js">
+        View source on Github
+      </a>
     </section>
   </nav>
 
@@ -37,10 +43,10 @@
         <div class="row">
           <div class="column small-offset-1 small-10 large-offset-2 large-8">
             <h1>Login</h1>
-            <form method="post" action="http://www.jscacourse.co.vu/login" class="small-8">
+            <form method="post" class="small-8">
               <input name="login" type="text" placeholder="enter your login">
-              <small class="hide">Something went wrong!</small>
               <input name="password" type="password" placeholder="enter your password">
+              <small class="hide"></small>
               <input type="submit" value="Log me in" class="button">
               <!--a href="/signup" class="button secondary">Sign me up</a-->
             </form>
@@ -52,12 +58,12 @@
       <div class="row">
         <div class="column small-offset-1 small-10 large-offset-2 large-8">
           <h1>Signup</h1>
-          <form method="post" action="http://www.jscacourse.co.vu/signup" class="small-8">
+          <form method="post" class="small-8">
             <input name="login" type="text" placeholder="enter your login">
-            <small class="hide">Something went wrong!</small>
             <input name="email" type="email" placeholder="enter your email">
             <input name="password" type="password" placeholder="enter your new password">
             <input name="passwordConfirmation" type="password" placeholder="retype it">
+            <small class="hide"></small>
             <input type="submit" value="Let me in!" class="button">
             <a href="/login" class="button secondary">Nah, I do have an account already.</a>
           </form>
@@ -66,61 +72,14 @@
     </div>
     <hr>
     <div id="list">
-      <ul class="small-block-grid-3">
-      <li>
-        <div class="person male">
-          <a class='url n' href="#show-full"><i>Mr.</i> Know-it-all, I</a>
-        </div>
-      </li>
-      <li>
-        <div class="person female">
-          <a class='url n' href="#show-full"><i>Mrs.</i> Did-it, Been-there</a>
-        </div>
-      </li>
-      <li>
-        <div class="person male">
-          <a class='url n' href="#show-full"><i>Mr.</i> Real Fun.</a>
-        </div>
-      </li>
-      </ul>
+      <ul class="small-block-grid-3"></ul>
     </div>
     <hr>
-    <div id="show-full">
-      <div>
-      <!--img src="imgs/ajax-loader.gif" alt="AJAX loader animation"-->
-      <h2>Mr. Know-it-all, I</h2>
-      <section>
-        <h3>Location</h3>
-        Street: 1212 mullholand drive, hollywood, LA, 12312
-      </section>
-      <section>
-        <h3>Connect with him!</h3>
-        <a href="mailto:knowitall@whitehouse.gov">knowitall@whitehouse.gov</a>
-
-        <br/>
-        <a href="tel:38(098)#102">38(098)9991613</a>
-      </section>
-      </div>
+    <div class="hide" id="show-full">
+      <img class="hide" src="imgs/ajax-loader.gif" alt="AJAX loader animation">
     </div>
     <!--[if lt IE 7]><script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script><script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script><![endif]-->
     <script src="libs/jquery-2.0.3.min.js"></script>
     <script src="js/jAjax.js"></script>
   </body>
 </html>
-
-<!-- <div id="your section">
-      <header>
-        <a href="logout">Log out</a>
-      </header>
-      <div id="main" role="main">
-
-      </div>
-      <footer>
-
-      </footer>
-    </div> -->
-
-
-
-
-
