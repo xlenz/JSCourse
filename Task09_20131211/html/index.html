@@ -31,13 +31,15 @@
       <ul class="left">
         <li class="active"><a href="#login">Login</a></li>
         <li><a href="#signup">Signup</a></li>
-        <li><a href="#list">List my dates!</a></li>
+        <li class="hide"><a href="#list">List my dates!</a></li>
       </ul>
       <a class="right" href="https://github.com/xlenz/JSCourse/blob/master/Task09_20131211/web/js/jAjax.js">
         View source on Github
       </a>
     </section>
   </nav>
+
+  <div id="userInfo" class="hide"><i></i></div>
 
     <div id="login">
         <div class="row">
@@ -53,7 +55,7 @@
           </div>
         </div>
     </div>
-    <hr>
+
     <div id="signup">
       <div class="row">
         <div class="column small-offset-1 small-10 large-offset-2 large-8">
@@ -70,11 +72,11 @@
         </div>
       </div>
     </div>
-    <hr>
+
     <div id="list">
       <ul class="small-block-grid-3"></ul>
     </div>
-    <hr>
+
     <div class="hide" id="show-full">
       <img class="hide" src="imgs/ajax-loader.gif" alt="AJAX loader animation">
     </div>
