@@ -8,42 +8,50 @@ var urls = {
     user: apiUrl + 'user/'
 };
 var token = null;
-var tplUserList = '<li><div class="person {sex}" iid="{userId}"><a class="url n" href="#show-full"><i>{title}</i> {firstName} {lastName}</a></div></li>';
-var tplUser = '<div><h2>{title} {firstName} {lastName}</h2><section><h3>Location</h3>Street: {street}, {city}, {state}, {zip}</section><section><h3>Connect with him!</h3><a href="mailto:{email}">{email}</a><br/>Cell: <a href="tel:{cell}">{cell}</a><br/>Phone: <a href="tel:{phone}">{phone}</a></section></div>';
+var tplUserList = '<li><div class="person {sex}" iid="{userId}"><a class="url n" href="#show-full">' +
+                          '<i>{title}</i> {firstName} {lastName}</a></div></li>';
+var tplUser = '<div><h2>{title} {firstName} {lastName}</h2>' +
+                     '<section><h3>Location</h3>Street: {street}, {city}, {state}, {zip}</section>' +
+                     '<section><h3>Connect with him!</h3><a href="mailto:{email}">{email}</a>' +
+                     '<br/>Cell: <a href="tel:{cell}">{cell}</a>'+
+                     '<br/>Phone: <a href="tel:{phone}">{phone}</a></section></div>';
 
-$('section.top-bar-section li a').each(function (i, el) {
-    $(el).on('click', function () {
-        $('section.top-bar-section li').removeClass('active');
-        $(this).parent().toggleClass('active');
-        hideTabs();
-    });
+$('section.top-bar-section').on('click', 'a', function () {
+    var tab = $(this).parent();
+    tab.siblings().removeClass('active');
+    tab.toggleClass('active');
+    hideTabs();
+});
+
+$.ajaxSetup({
+    crossDomain: true,
+    dataType: 'json',
+    error: function (res) {
+        console.error(res);
+    }
 });
 
 $('#signup form').on('submit', function (e) {
     e.preventDefault();
     var form = this;
     var data = $(form).serializeArray();
-    console.log(data);
+    console.log('form:', data);
     $.ajax({
         type: "POST",
         url: urls.signup,
-        crossDomain: true,
         data: data,
-        dataType: 'json',
         success: function (res) {
-            $('html, body').animate({
-                scrollTop: $("#login").offset().top
-            }, 200);
-            $('section.top-bar-section li').removeClass('active');
-            $('section.top-bar-section li a[href="#signup"]').parent().hide(); //comment to debug
-            $('section.top-bar-section li a[href="#login"]').parent().toggleClass('active');
+            console.log('ok: signup', res);
+            var tabs = $('section.top-bar-section li');
+            tabs.removeClass('active');
+            tabs.find('a[href="#signup"]').parent().hide(); //comment to debug
+            tabs.find('a[href="#login"]').parent().toggleClass('active');
             hideTabs();
             $('#userInfo i').text('User ' + data[0].value + ' successfully created!').parent().removeClass('hide');
-            console.log(res);
         },
         error: function (res) {
+            console.error(res);
             authErr(res, form);
-            console.log('err: signup', res);
         }
     });
 });
@@ -52,27 +60,25 @@ $('#login form').on('submit', function (e) {
     e.preventDefault();
     var form = this;
     var data = $(form).serializeArray();
-    console.log(data);
+    console.log('form:', data);
     $.ajax({
         type: "POST",
         url: urls.login,
-        crossDomain: true,
         data: data,
-        dataType: 'json',
         success: function (res) {
             console.log('ok: login', res);
             $('#userCreated').remove();
-            $('section.top-bar-section li').removeClass('active');
-            $('section.top-bar-section li a[href!="#list"]').parent().hide(); //comment to debug
-            $('section.top-bar-section li a[href="#list"]').parent().removeClass('hide');
-            $('section.top-bar-section li a[href="#list"]').parent().toggleClass('active');
+            var tabs = $('section.top-bar-section li');
+            tabs.removeClass('active');
+            tabs.find('a[href!="#list"]').parent().hide()
+                   .siblings().removeClass('hide').toggleClass('active');
             hideTabs();
             $('#userInfo i').text('Welcome, ' + data[0].value).parent().removeClass('hide');
             token = res.token;
         },
         error: function (res) {
+            console.error(res);
             authErr(res, form);
-            console.log('err: login', res);
         }
     });
 });
@@ -82,8 +88,6 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: urls.users,
-        crossDomain: true,
-        dataType: 'json',
         success: function (res) {
             console.log('ok: userList', res);
             var len = res.length;
@@ -105,9 +109,10 @@ $(document).ready(function () {
                         alert('Please login.');
                         return;
                     }
-                    $('#show-full div').remove();
-                    $('#show-full').removeClass('hide');
-                    $('#show-full img').toggleClass('hide');
+                    var showUser = $('#show-full');
+                    showUser.find('div').remove();
+                    showUser.removeClass('hide');
+                    showUser.find('img').toggleClass('hide');
                     $.ajax({
                         url: urls.user + userId,
                         headers: {
@@ -129,19 +134,15 @@ $(document).ready(function () {
                                 cell: usrInfo.cell,
                                 email: usrInfo.email
                             });
-                            $('#show-full img').toggleClass('hide');
-                            $('#show-full').append(userHtml);
+                            $('#show-full').append(userHtml).find(img).toggleClass('hide');
                         },
                         error: function (data) {
-                            console.log('err: userId', data);
+                            console.error(data);
                             $('#show-full img').toggleClass('hide');
                         }
                     });
                 });
             });
-        },
-        error: function (res) {
-            console.log('err: userList', res);
         }
     });
 });
@@ -179,11 +180,12 @@ function authErr(res, form) {
 }
 
 function hideTabs() {
-    $('section.top-bar-section li[class!="active"] a').each(function (i, el) {
+    var navMenu = $('section.top-bar-section');
+    navMenu.find('li[class!="active"] a').each(function (i, el) {
         var hideTab = $(el).attr('href');
         $(hideTab).hide();
     });
-    var showTab = $('section.top-bar-section li[class="active"] a').attr('href');
+    var showTab = navMenu.find('li[class="active"] a').attr('href');
     $(showTab).show();
 }
 
