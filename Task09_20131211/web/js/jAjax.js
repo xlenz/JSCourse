@@ -69,9 +69,8 @@ $('#login form').on('submit', function (e) {
             console.log('ok: login', res);
             $('#userCreated').remove();
             var tabs = $('section.top-bar-section li');
-            tabs.removeClass('active');
-            tabs.find('a[href!="#list"]').parent().hide()
-                   .siblings().removeClass('hide').toggleClass('active');
+            tabs.removeClass('active').siblings().toggleClass('hide');
+            tabs.find('a[href="#list"]').parent().toggleClass('active');
             hideTabs();
             $('#userInfo i').text('Welcome, ' + data[0].value).parent().removeClass('hide');
             token = res.token;
@@ -84,7 +83,6 @@ $('#login form').on('submit', function (e) {
 });
 
 $(document).ready(function () {
-    hideTabs();
     $.ajax({
         type: "GET",
         url: urls.users,
@@ -102,45 +100,42 @@ $(document).ready(function () {
                 });
                 $('#list ul').append(userHtml);
             }
-            $('#list ul li a').each(function (i, el) {
-                var userId = $(el).parent().attr('iid');
-                $(el).on('click', function () {
-                    if (!token) {
-                        alert('Please login.');
-                        return;
+            $('#list ul').on('click', 'a', function () {
+                var userId = $(this).parent().attr('iid');
+                if (!token) {
+                    alert('Please login.');
+                    return;
+                }
+                var showUser = $('#show-full').removeClass('hide');
+                showUser.find('div').remove();
+                showUser.find('img').toggleClass('hide');
+                $.ajax({
+                    url: urls.user + userId,
+                    headers: {
+                        'SECRET-TOKEN': token
+                    },
+                    type: 'GET',
+                    success: function (data) {
+                        console.log('ok: userId', data);
+                        var usrInfo = data[0].user;
+                        var userHtml = tplUser.format({
+                            title: capitalize(usrInfo.name.title),
+                            firstName: capitalize(usrInfo.name.first),
+                            lastName: capitalize(usrInfo.name.last),
+                            city: usrInfo.location.city,
+                            state: usrInfo.location.state,
+                            street: usrInfo.location.street,
+                            zip: usrInfo.location.zip,
+                            phone: usrInfo.phone,
+                            cell: usrInfo.cell,
+                            email: usrInfo.email
+                        });
+                        showUser.append(userHtml).find('img').toggleClass('hide');
+                    },
+                    error: function (data) {
+                        console.error(data);
+                        showUser.find('img').toggleClass('hide');
                     }
-                    var showUser = $('#show-full');
-                    showUser.find('div').remove();
-                    showUser.removeClass('hide');
-                    showUser.find('img').toggleClass('hide');
-                    $.ajax({
-                        url: urls.user + userId,
-                        headers: {
-                            'SECRET-TOKEN': token
-                        },
-                        type: 'GET',
-                        success: function (data) {
-                            console.log('ok: userId', data);
-                            var usrInfo = JSON.parse(data)[0].user;
-                            var userHtml = tplUser.format({
-                                title: capitalize(usrInfo.name.title),
-                                firstName: capitalize(usrInfo.name.first),
-                                lastName: capitalize(usrInfo.name.last),
-                                city: usrInfo.location.city,
-                                state: usrInfo.location.state,
-                                street: usrInfo.location.street,
-                                zip: usrInfo.location.zip,
-                                phone: usrInfo.phone,
-                                cell: usrInfo.cell,
-                                email: usrInfo.email
-                            });
-                            $('#show-full').append(userHtml).find(img).toggleClass('hide');
-                        },
-                        error: function (data) {
-                            console.error(data);
-                            $('#show-full img').toggleClass('hide');
-                        }
-                    });
                 });
             });
         }
@@ -183,9 +178,9 @@ function hideTabs() {
     var navMenu = $('section.top-bar-section');
     navMenu.find('li[class!="active"] a').each(function (i, el) {
         var hideTab = $(el).attr('href');
-        $(hideTab).hide();
+        $(hideTab).addClass('hide');
     });
     var showTab = navMenu.find('li[class="active"] a').attr('href');
-    $(showTab).show();
+    $(showTab).removeClass('hide');
 }
 
