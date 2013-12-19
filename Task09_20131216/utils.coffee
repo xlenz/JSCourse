@@ -4,8 +4,8 @@ utils = {}
 
 class LoggerInterface
     log: (args...) ->
-        if arguments.length is 0 then throw Error
-        console.log args.join(' ')
+        if args.length is 0 then throw Error
+        console.log args
 
     padding: (str, len, symbol) ->
         if arguments.length is 0 then throw Error
