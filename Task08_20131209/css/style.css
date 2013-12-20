@@ -6,22 +6,13 @@
 hr {
   margin: 20px auto 20px;
 }
+
 /* animation stuff  */
-.tab-body:target {
-  min-height: 220px;
+
+.tab-body {
+  overflow: hidden;
 }
 
-/*
-.tab-body {
-  height: 0;
-  overflow: hidden;
-  -webkit-transition: min-height 0.2s ease-in;
-	-moz-transition:    min-height 0.2s ease-in;
-	-ms-transition:     min-height 0.2s ease-in;
-	-o-transition:      min-height 0.2s ease-in;
-	transition:         min-height 0.2s ease-in;
-}
-*/
 /*bells & whistles for input */
 .tab {
   margin-top: 5px;
@@ -99,20 +90,8 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 /* chameleon */
 a.chameleon {
-  display: inline-block;
-  padding: 40px;
-  background-color: rgb(0, 255, 71);
-  -webkit-transition:  background-color 0.5s ease-in;
-	-moz-transition:     background-color 0.5s ease-in;
-	-ms-transition:      background-color 0.5s ease-in;
-	-o-transition:       background-color 0.5s ease-in;
-	transition:          background-color 0.5s ease-in;
-}
-
-.chameleon:hover {
-  background-color: rgb(115, 134, 120);
-}
-.chameleon:active {
-  background-color: rgb(160, 255, 186);
+    display: inline-block;
+    padding: 40px;
+    background-color: rgb(0, 255, 71);
 }
 
