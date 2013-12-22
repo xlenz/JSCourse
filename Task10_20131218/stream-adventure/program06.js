@@ -1,11 +1,9 @@
-var through = require('through');
-var split = require('split');
+var concat = require('concat-stream');
 
-var odd = true;
-var tr = through(function (buf) {
-    var line = buf + '\n';
-    line = odd ? line.toLowerCase() : line.toUpperCase();
-    this.queue(line);
-    odd = !odd;
-});
-process.stdin.pipe(split()).pipe(tr).pipe(process.stdout);
+process.stdin.pipe(concat(function (buf) {
+    console.log( reverse(src.toString()) );
+}));
+
+function reverse(s) {
+    return s.split('').reverse().join('');
+}
