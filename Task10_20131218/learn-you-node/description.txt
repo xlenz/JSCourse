@@ -1,0 +1,13 @@
+program01        HELLO WORLD
+program02        BABY STEPS
+program03        MY FIRST I/O!
+program04        MY FIRST ASYNC I/O!
+program05        FILTERED LS
+program06        MAKE IT MODULAR
+program07        HTTP CLIENT
+program08        HTTP COLLECT
+program09        JUGGLING ASYNC
+program10        TIME SERVER
+program11        HTTP FILE SERVER
+program12        HTTP UPPERCASERER
+program13        HTTP JSON API SERVER

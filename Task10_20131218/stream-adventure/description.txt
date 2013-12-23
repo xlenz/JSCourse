@@ -1,0 +1,17 @@
+program01        BEEP BOOP
+program02        MEET PIPE
+program03        INPUT OUTPUT
+program04        TRANSFORM
+program05        LINES
+program06        CONCAT
+program07        HTTP SERVER
+program08        HTTP CLIENT
+program09        WEBSOCKETS
+program10        HTML STREAM
+program11_module DUPLEXER
+program11 - dbg
+program12        DUPLEXER REDUX
+program13        COMBINER
+program14        CRYPT
+program15        SECRETZ
+
