@@ -10,8 +10,11 @@ program09        WEBSOCKETS
 program10        HTML STREAM
 program11_module DUPLEXER
 program11 - dbg
-program12        DUPLEXER REDUX
-program13        COMBINER
+
+*not done
+*program12        DUPLEXER REDUX
+*program13        COMBINER
+
 program14        CRYPT
 program15        SECRETZ
 
