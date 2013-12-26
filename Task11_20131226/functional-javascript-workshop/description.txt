@@ -1,0 +1,19 @@
+program01        Hello World
+program02        Higher Order Functions
+program03        Basic: Map
+program04        Basic: Filter
+program05        Basic: Every Some
+program06        Basic: Reduce
+program07        Basic: Recursion
+program08        Basic: Call
+program09        Partial Application without Bind
+program10        Partial Application with Bind
+program11        Implement Map with Reduce
+program12        Function Spies
+program13        Blocking Event Loop
+program14        Trampoline
+program15        Async Loops
+program16        Recursion
+program17        Currying
+program18        Function Call
+
