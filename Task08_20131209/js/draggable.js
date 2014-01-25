@@ -42,7 +42,7 @@
     });
   });
 
-  $(window).on("mouseup", function (e) {
+  $(window).on('mouseup', function (e) {
     dragging = false;
     overlayDark.stop().animate({
       opacity: 0
