@@ -1,0 +1,25 @@
+{
+  "name": "Task03_20131113",
+  "version": "0.0.1",
+  "description": "mockup",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xlenz/JSCourse/tree/master/Task03_20131113"
+  },
+  "keywords": [
+    "mockup",
+    "thingy",
+    "leaflet",
+    "skeleton"
+  ],
+  "author": "mgrybyk",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~3.4.8"
+  }
+}

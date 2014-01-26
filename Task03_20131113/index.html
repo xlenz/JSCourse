@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>moqup thingy</title>
+  <title>mockup thingy</title>
   <meta name="description" content="task 3">
   <meta name="author" content="JS Course">
 
@@ -13,31 +13,37 @@
   <link rel="stylesheet" href="stylesheets/skeleton.css">
   <link rel="stylesheet" href="stylesheets/layout.css">
   <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/leaflet.css">
 </head>
 
 <body>
-  <nav class="container navigation-menu">
+  <nav class="container section-border nav-top" id="nav-top">
     <ul>
       <li class="four columns">
         <a href="#home">
-          <span class="icon home"></span>Home</a>
+          <span class="icon home"></span><h4>Home</h4>
+        </a>
       </li>
       <li class="four columns">
         <a href="#faq">
-          <span class="icon faq"></span>FAQ</a>
+          <span class="icon faq"></span><h4>FAQ</h4>
+        </a>
       </li>
       <li class="four columns">
         <a href="#contacts">
-          <span class="icon contacts"></span>Contacts</a>
+          <span class="icon contacts"></span><h4>Contacts</h4>
+        </a>
       </li>
       <li class="four columns">
         <a href="#intouch">
-          <span class="icon intouch"></span>Stay in touch</a>
+          <span class="icon intouch"></span><h4>Stay in touch</h4>
+        </a>
       </li>
     </ul>
   </nav>
+
   <section id="home" class="container section-border">
-    <h2 class="section-header">Home</h2>
+    <h2 class="align-center">Home</h2>
     <div class="row">
       <div class="four columns">
         <figure>
@@ -84,57 +90,118 @@
   </section>
 
   <section id="faq" class="container section-border">
-    <h2 class="section-header">FAQ</h2>
-    <div class="row">
+    <h2 class="align-center">FAQ</h2>
+    <div class="sixteen columns">
       <dl>
-        <dt>
-          <em>Can I send some feedback?</em>
-        </dt>
-        <dd>Please see the <a href="#feedback">form</a> bellow.</dd>
+        <dt>Question 1</dt>
+        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
+        </dd>
+      </dl>
+      <dl>
+        <dt>Question 2</dt>
+        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+          in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur.
+        </dd>
       </dl>
     </div>
   </section>
-  <div class="container">
-    <div class="sixteen columns">
-      <h1 class="remove-bottom" style="margin-top: 40px">Skeleton</h1>
-      <h5>Version 1.2</h5>
-      <hr />
-    </div>
-    <div class="one-third column">
-      <h3>About Skeleton?</h3>
-      <p>Skeleton is a small collection of well-organized CSS files that can
-        help you rapidly develop sites that look beautiful at any size,
-        be it a 17" laptop screen or an iPhone. It's based on a responsive
-        grid, but also provides very basic CSS for typography, buttons,
-        forms and media queries. Go ahead, resize this super basic page
-        to see the grid in action.</p>
-    </div>
-    <div class="one-third column">
-      <h3>Three Core Principles</h3>
-      <p>Skeleton is built on three core principles:</p>
-      <ul class="square">
-        <li>
-          <strong>A Responsive Grid Down To Mobile</strong>: Elegant scaling from
-          a browser to tablets to mobile.</li>
-        <li>
-          <strong>Fast to Start</strong>: It's a tool for rapid development with
-          best practices</li>
-        <li>
-          <strong>Style Agnostic</strong>: It provides the most basic, beautiful
-          styles, but is meant to be overwritten.</li>
-      </ul>
-    </div>
-    <div class="one-third column">
-      <h3>Docs &amp; Support</h3>
-      <p>The easiest way to really get started with Skeleton is to check out
-        the full docs and info at <a href="http://www.getskeleton.com">www.getskeleton.com.</a>.
-        Skeleton is also open-source and has a <a href="https://github.com/dhgamache/skeleton">project on git</a>,
-        so check that out if you want to report bugs or create a pull request.
-        If you have any questions, thoughts, concerns or feedback, please
-        don't hesitate to email me at <a href="mailto:hi@getskeleton.com">hi@getskeleton.com</a>.</p>
-    </div>
-  </div>
 
+  <section id="contacts" class="container section-border">
+    <h2 class="align-center">Contacts</h2>
+    <div class="row">
+      <div class="five columns">
+        <div id="leafletMap"></div>
+      </div>
+      <div class="eleven columns">
+        <div class="row">
+          <div class="two columns">Address:</div>
+          <div>Ukraine, Kiev, Kazimir Malevich Street, 86d</div>
+        </div>
+        <div class="row">
+          <div class="two columns">Email:</div>
+          <div>
+            <a href="mailto:test@test.com?subject=testing">test at test.com</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="two columns">Phone:</div>
+          <div>
+            <a href="tel:+380631234455">+380 (63) 123-44-55</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="intouch" class="container section-border">
+    <h2 class="align-center">Stay in touch</h2>
+    <form class="sixteen columns align-center">
+      <div class="oneLine">
+        <label>Name
+          <input type="text" name="name" placeholder="Your name">
+        </label>
+      </div>
+      <div class="oneLine">
+        <label>Email
+          <input type="email" name="email" placeholder="Email">
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" name="spam" checked="checked">I agree to get spam
+        </label>
+      </div>
+      <div>
+        <input type="submit">
+      </div>
+    </form>
+  </section>
+
+  <section class="container section-border rating">
+    <nav class="one-third column nav-bottom" id="nav-bottom">
+      <ul>
+        <li>
+          <a href="#home">
+            <span class="icon home"></span>Home</a>
+        </li>
+        <li>
+          <a href="#faq">
+            <span class="icon faq"></span>FAQ</a>
+        </li>
+        <li>
+          <a href="#contacts">
+            <span class="icon contacts"></span>Contacts</a>
+        </li>
+        <li>
+          <a href="#intouch">
+            <span class="icon intouch"></span>Stay in touch</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="two-third column">
+      <form>
+        <legend>
+          <h5>Let us hear your feedback</h5>
+        </legend>
+        <span>How likely will you advise us</span>
+        <input type="radio" name="rate" value="-2">--
+        <input type="radio" name="rate" value="-1">-+
+        <input type="radio" name="rate" value="1">+-
+        <input type="radio" name="rate" value="2" checked="">++
+        <input type="submit" value="Vote" class="vote">
+      </form>
+    </div>
+  </section>
+
+  <script src="js/leaflet.js"></script>
+  <script src="js/leafletMap.js"></script>
 </body>
 
 </html>

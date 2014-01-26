@@ -1,0 +1,75 @@
+a {
+  color: #428bca;
+  text-decoration: none;
+}
+a:hover, a:focus {
+  color: #2a6496;
+  text-decoration: underline;
+}
+.align-center {
+  text-align: center;
+}
+.section-border {
+  border-style: solid;
+  border-width: 2px;
+}
+div#leafletMap {
+  height: 180px;
+}
+form .oneLine input {
+  margin-left: 1em;
+}
+#nav-top {
+  background-color: #D6D6D6;
+}
+#nav-top li {
+  text-align: center;
+  border: 2px solid;
+  margin-right: 0;
+  margin-left: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: white;
+  margin-bottom: 3px;
+}
+#nav-top li:hover {
+  background-color: #87CEEB;
+}
+#nav-top li:focus {
+  background-color: #ADD8E6;
+}
+.nav-top ul {
+  margin-top: 3px;
+  margin-right: 0;
+}
+.nav-top a {
+  display:block;
+}
+.nav-top a:hover {
+  text-decoration: none;
+}
+nav#nav-bottom {
+  border-right: 2px solid;
+  background-color: #444444;
+  margin-left: 0;
+}
+nav.nav-bottom a {
+  color: #FF3823;
+}
+nav.nav-bottom a:hover {
+  color: yellow;
+}
+nav.nav-bottom ul {
+  padding-left: 20px;
+  padding-top: 20px;
+}
+.rating {
+  background-color: #D6D6D6;
+}
+@media only screen and (max-width: 767px) {
+  #nav-top li {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: -2px;
+  }
+}
