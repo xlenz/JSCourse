@@ -14,6 +14,10 @@ a:hover, a:focus {
   border-width: 2px;
   border-color: black;
 }
+.icon {
+  display: inline-block;
+  background: url(../images/moqupSprite.png) no-repeat;
+}
 div#leafletMap {
   height: 180px;
 }
@@ -41,9 +45,51 @@ form .oneLine input {
 }
 .nav-top a {
   display:block;
+  margin-right: -8px;
+  margin-left: -8px;
+  margin-bottom: -4px;
 }
 .nav-top a:hover {
   text-decoration: none;
+}
+.nav-top .icon {
+  margin-bottom: -12px;
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+.nav-top .icon.home {
+  background-position: -37px -24px;
+}
+.nav-top .icon.faq {
+  background-position: 2px -25px;
+}
+.nav-top .icon.contacts {
+  background-position: -75px -25px;
+}
+.nav-top .icon.intouch {
+  background-position: -114px -25px;
+}
+#contacts .icon {
+  height: 35px;
+  width: 35px;
+}
+#contacts .icon.address {
+  background-position: -1px -66px;
+}
+#contacts .icon.email {
+  background-position: -39px -70px;
+}
+#contacts .icon.phone {
+  background-position: -82px -66px;
+}
+.rating .icon {
+  height: 20px;
+  width: 20px;
+}
+.rating .icon.feedback {
+  margin-bottom: -4px;
+  background-position: -73px -1px;
 }
 nav#nav-bottom {
   border-right: 2px solid;
@@ -60,12 +106,14 @@ nav.nav-bottom ul {
   padding-left: 20px;
   padding-top: 20px;
 }
-.rating {
+section.rating {
   background-color: #D6D6D6;
+}
+section.rating form {
+  padding-top: 18px;
 }
 footer {
   padding-top: 1em;
-  border-top: 1px solid #e5e5e5;
 }
 @media only screen and (max-width: 767px) {
   #nav-top li {
@@ -73,5 +121,15 @@ footer {
     padding-right: 0;
     margin-left: -2px;
     margin-bottom: -1px;
+  }
+  .nav-top a {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  section.rating form {
+    padding-left: 20px;
+  }
+  #contacts .icon {
+    display: none;
   }
 }

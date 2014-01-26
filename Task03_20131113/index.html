@@ -21,26 +21,30 @@
     <ul>
       <li class="four columns align-center">
         <a href="#home">
-          <span class="icon home"></span>
-          <h4>Home</h4>
+          <h4>
+            <span class="icon home"></span>Home
+          </h4>
         </a>
       </li>
       <li class="four columns align-center">
         <a href="#faq">
-          <span class="icon faq"></span>
-          <h4>FAQ</h4>
+          <h4>
+            <span class="icon faq"></span>FAQ
+          </h4>
         </a>
       </li>
       <li class="four columns align-center">
         <a href="#contacts">
-          <span class="icon contacts"></span>
-          <h4>Contacts</h4>
+          <h4>
+            <span class="icon contacts"></span>Contacts
+          </h4>
         </a>
       </li>
       <li class="four columns align-center">
         <a href="#intouch">
-          <span class="icon intouch"></span>
-          <h4>Stay in touch</h4>
+          <h4>
+            <span class="icon intouch"></span>Stay in touch
+          </h4>
         </a>
       </li>
     </ul>
@@ -120,22 +124,37 @@
   <section id="contacts" class="container section-border">
     <h2 class="align-center">Contacts</h2>
     <div class="row">
-      <div class="five columns">
+      <div class="six columns">
         <div id="leafletMap"></div>
       </div>
-      <div class="eleven columns">
+      <div class="ten columns">
         <div class="row">
-          <div class="two columns">Address:</div>
+          <div class="one columns">
+            <span class="icon address"></span>
+          </div>
+          <div class="two columns">
+            <strong>Address:</strong>
+          </div>
           <div>Ukraine, Kiev, Kazimir Malevich Street, 86d</div>
         </div>
         <div class="row">
-          <div class="two columns">Email:</div>
+          <div class="one columns">
+            <span class="icon email"></span>
+          </div>
+          <div class="two columns">
+            <strong>Email:</strong>
+          </div>
           <div>
             <a href="mailto:test@test.com?subject=testing">test at test.com</a>
           </div>
         </div>
         <div class="row">
-          <div class="two columns">Phone:</div>
+          <div class="one columns">
+            <span class="icon phone"></span>
+          </div>
+          <div class="two columns">
+            <strong>Phone:</strong>
+          </div>
           <div>
             <a href="tel:+380631234455">+380 (63) 123-44-55</a>
           </div>
@@ -172,34 +191,31 @@
     <nav class="one-third column nav-bottom" id="nav-bottom">
       <ul>
         <li>
-          <a href="#home">
-            <span class="icon home"></span>Home</a>
+          <a href="#home">Home</a>
         </li>
         <li>
-          <a href="#faq">
-            <span class="icon faq"></span>FAQ</a>
+          <a href="#faq">FAQ</a>
         </li>
         <li>
-          <a href="#contacts">
-            <span class="icon contacts"></span>Contacts</a>
+          <a href="#contacts">Contacts</a>
         </li>
         <li>
-          <a href="#intouch">
-            <span class="icon intouch"></span>Stay in touch</a>
+          <a href="#intouch">Stay in touch</a>
         </li>
       </ul>
     </nav>
     <div class="two-third column">
       <form>
-        <legend>
-          <h5>Let us hear your feedback</h5>
-        </legend>
-        <span>How likely will you advise us</span>
-        <input type="radio" name="rate" value="-2">--
-        <input type="radio" name="rate" value="-1">-+
-        <input type="radio" name="rate" value="1">+-
-        <input type="radio" name="rate" value="2" checked="">++
-        <input type="submit" value="Vote" class="vote">
+        <fieldset>
+          <legend>
+            <span class="icon feedback"></span>How likely will you advise us
+          </legend>
+          <input type="radio" name="rate" value="-2">--
+          <input type="radio" name="rate" value="-1">-+
+          <input type="radio" name="rate" value="1">+-
+          <input type="radio" name="rate" value="2" checked="">++
+          <input type="submit" value="Vote" class="vote">
+        </fieldset>
       </form>
     </div>
   </section>
