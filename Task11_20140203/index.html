@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/gridism/gridism.css">
+  <title>Bookshelf</title>
+  <link href="app/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1 class="align-center">Bookshelf</h1>
+
+  <script type="text/template" id="tpl-books">
+
+  </script>
+
+  <script type="text/template" id="tpl-book">
+    <div>
+      <h3><%- title %></h3>
+      <h4><%- subtitle %></h4>
+      <ul>
+        <li><strong>Publisher: </strong><%- publisher %></li>
+        <li><strong>Published Date: </strong><%- publishedDate %></li>
+        <li><strong>Language: </strong><%- language %></li>
+      </ul>
+    </div>
+  </script>
+
+  <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/backbone/backbone.js"></script>
+
+  <script src="app/js/app.js"></script>
+  <script src="app/js/models/book.js"></script>
+  <script src="app/js/collections/books.js"></script>
+  <script src="app/js/views/book.js"></script>
+  <script src="app/js/views/books.js"></script>
+  <script src="app/js/init.js"></script>
+</body>
+
+</html>

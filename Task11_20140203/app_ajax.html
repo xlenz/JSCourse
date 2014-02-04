@@ -1,0 +1,127 @@
+<html>
+<head>
+	<link rel="stylesheet" href="books.css" type="text/css"></link>
+	<script type="text/javascript" src="jquery-1.7.2.js"></script>
+	<script type="text/javascript">
+		var data = [
+			{ name: 'jQuery 1.4 Reference Guide',
+			  icon: 'img/icon1.jpg',
+			  url:  'http://www.packtpub.com/jquery-1-4-reference-guide/book'},
+			{ name: 'Learning jQuery, Third Edition',
+			  icon: 'img/icon2.jpg',
+			  url:  'http://www.packtpub.com/learning-jquery-for-interaction-design-web-development-with-javascript/book'},
+			{ name: 'jQuery UI 1.8: The User Interface Library for jQuery',
+			  icon: 'img/icon3.jpg',
+			  url:  'http://www.packtpub.com/jquery-ui-1-8-user-interface-library/book'},
+			{ name: 'HTML5 Games Development by Example: Beginner’s Guide',
+			  icon: 'img/icon4.jpg',
+			  url:  'http://www.packtpub.com/html5-games-development-using-css-javascript-beginners-guide/book'},
+			{ name: 'Node Web Development',
+			  icon: 'img/icon5.jpg',
+			  url:  'http://www.packtpub.com/node-javascript-web-development/book'},
+			{ name: 'Object-Oriented JavaScript',
+			  icon: 'img/icon6.jpg',
+			  url:  'http://www.packtpub.com/object-oriented-javascript/book'}
+			
+		];
+		var template = '<li class="record">\
+							<img class="record-icon" src="{0}" />\
+							<a href="{1}" class="record-link">{2}</a>\
+						</li>';
+						
+        var currentPage = 0;
+		var total = 1;
+		var topic = 'ajax';
+		function init() {
+		    //loadBooksList(data)
+			getBooks(topic, loadBooksList, 0);
+		}
+		
+		function loadBooksList( data ) {
+			var sHtml = '';
+			for ( var i = 0; i < data.length; i++ ) {
+				sHtml += format( template, data[i].icon, data[i].url, data[i].name )
+			}
+			document.getElementById('recordsList').innerHTML = sHtml;
+		}
+		
+		function format(src) {
+			var result = src;
+			for( var i = 1; i < arguments.length; i++ ) {
+				var reg = new RegExp( '\\{' + (i-1) + '\\}', 'g' );
+				result = result.replace( reg, arguments[i] );
+			}
+			return result;
+		}
+		
+		function doSearch() {
+			var token = document.getElementById('searchText').value;
+			topic = token.split(' ').join('+');
+			currentPage = 0;
+			document.getElementById('pageNumber').value = '0';
+			getBooks( topic, loadBooksList, 0 )
+		}
+		
+		function getBooks( token, cb, startIndex ) {
+			$.getJSON('https://www.googleapis.com/books/v1/volumes?q='+token+'&startIndex='+startIndex*10+'&callback=?', function(books) {
+				var list = []
+				// transform RESTful service response to records list
+				for ( var i = 0; i < books.items.length; i++ ) {
+					var rec = {}
+					rec.name = books.items[i].volumeInfo.title;
+					rec.icon = books.items[i].volumeInfo.imageLinks.thumbnail;
+					rec.url = books.items[i].volumeInfo.infoLink;
+					list.push(rec)
+				}
+				total = Math.floor(books.totalItems / 10) + startIndex
+				document.getElementById('total').innerHTML = total;
+				cb(list);
+			})
+		}
+		function goFirst() {
+			if (currentPage > 0 ) {
+				goTo(0)
+			}
+		}
+		function goPrev() {
+			if (currentPage > 0 ) {
+				goTo(currentPage-1);
+			}
+		}
+		function goNext() {
+			if (currentPage < total ) {
+				goTo(currentPage+1);
+			}
+		}
+		function goTo(page) {
+			currentPage = page;
+			document.getElementById('pageNumber').value = currentPage+1;
+			getBooks( topic, loadBooksList, currentPage )
+		}
+		function goToPage() {
+			var p = document.getElementById('pageNumber').value - 1;
+			if ( p >= 0 && p <= total ) {
+				goTo(p);
+			}
+		}
+		
+	</script>
+</head>
+<body onload="init()">
+	<div class="header">
+		<span class="title">Books Catalog</span>
+		<span class="search">
+			<input type="text" id="searchText" class="edit" size=20 placeholder="search..."/>
+			<img class="button" src="img/search.jpg" onclick="doSearch()" />
+		</span>	
+	</div>
+	<ul id="recordsList" class="content">
+	</ul>
+	<span class="pager">
+		<a href="#" onclick="goFirst()">&lt;&lt;</a>
+		<a href="#" onclick="goPrev()">&lt;</a>
+		<input type="text" size=1 id="pageNumber" value="1" onchange="goToPage()"/>of<span id="total"></span>
+		<a href="#" onclick="goNext()">&gt;</a>
+	</span>
+</body>
+</html>

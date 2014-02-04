@@ -1,0 +1,23 @@
+{
+  "name": "Task11_20140203",
+  "version": "0.0.1",
+  "homepage": "https://github.com/xlenz/JSCourse",
+  "authors": [
+    "Mykola Grybyk <xlenz7@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.0",
+    "jquery": "~2.1.0",
+    "underscore": "~1.5.2",
+    "gridism": "~0.1.0"
+  }
+}
