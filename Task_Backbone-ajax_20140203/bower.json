@@ -1,0 +1,23 @@
+{
+  "name": "backbone test",
+  "version": "0.0.1",
+  "authors": [
+    "Mykola Grybyk <xlenz7@gmail.com>"
+  ],
+  "main": "server",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.5.2",
+    "bootstrap": "~3.1.0",
+    "backbone": "~1.1.0",
+    "jquery": "~2.1.0"
+  }
+}

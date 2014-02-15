@@ -1,0 +1,29 @@
+{
+  "name": "backbone test",
+  "version": "0.0.1",
+  "description": "backbone js course",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "winston": "~0.7.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-express-server": "~0.4.11"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "localhost"
+  },
+  "keywords": [
+    "cluby"
+  ],
+  "author": "mgrybyk",
+  "license": "BSD-2-Clause"
+}
