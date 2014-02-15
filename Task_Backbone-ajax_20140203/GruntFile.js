@@ -2,18 +2,28 @@
 
 var pathToWeb = 'web/';
 var pathToApp = 'app/';
-var pathToPublic = pathToWeb + 'public/';
 
 module.exports = function (grunt) {
   grunt.initConfig({
     copy: {
-      js: {
+      app: {
         expand: true,
         cwd: pathToApp,
         src: [
           '**/*'
         ],
-        dest: pathToPublic
+        dest: pathToWeb
+      },
+      libs: {
+        expand: true,
+        cwd: 'bower_components/',
+        src: [
+          'backbone/backbone.js',
+          'underscore/underscore-min.js',
+          'underscore/underscore-min.map',
+          'jquery/jquery.min.js'
+        ],
+        dest: pathToWeb + 'libs/'
       }
     },
     clean: [pathToWeb],

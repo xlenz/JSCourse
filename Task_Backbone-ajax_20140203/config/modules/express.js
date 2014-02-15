@@ -3,7 +3,7 @@
 var express = require('express');
 
 module.exports = function (app, cfg) {
-  var pathToPublic = __dirname + '/../../web/public';
+  var pathToPublic = __dirname + '/../../web';
   app.configure(function () {
     app.use(logWho);
     app.use(express.logger('dev'));
