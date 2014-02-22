@@ -5,7 +5,11 @@ UserManager.Views.User = Backbone.View.extend({
   tagName: 'li',
 
   render: function () {
-    var html = this.template(this.model);
+    var usr = this.model;
+    Object.keys(usr.user.name).forEach(function (key) {
+      usr.user.name[key] = capitalize(usr.user.name[key]);
+    });
+    var html = this.template(usr);
     this.$el.append(html);
     return this;
   }

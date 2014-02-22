@@ -61,8 +61,8 @@ $('#login form').on('submit', function (e) {
 });
 
 function authErr(res, form) {
-  var errorMsg = '';
   var errors = res.responseJSON.errors;
+  var errorMsg = res.responseJSON.error || '';
   if (errors) {
     for (var i = 0; i < errors.length; i++) {
       var err = errors[i];
@@ -84,45 +84,3 @@ function hideTabs() {
   var showTab = navMenu.find('li[class="active"] a').attr('href');
   $(showTab).removeClass('hide');
 }
-
-/*
-$(document).ready(function () {
-  $('#list ul').on('click', 'a', function () {
-    var userId = $(this).parent().attr('iid');
-
-    var showUser = $('#show-full').removeClass('hide');
-    showUser.find('div').remove();
-    showUser.find('img').toggleClass('hide');
-    $.ajax({
-      url: UserManager.config.urls.user + userId,
-      headers: {
-        'SECRET-TOKEN': UserManager.config.token
-      },
-      type: 'GET',
-      success: function (data) {
-        console.log('ok: userId', data);
-        var usrInfo = data[0].user;
-        var userHtml = tplUser.format({
-          title: capitalize(usrInfo.name.title),
-          firstName: capitalize(usrInfo.name.first),
-          lastName: capitalize(usrInfo.name.last),
-          city: usrInfo.location.city,
-          state: usrInfo.location.state,
-          street: usrInfo.location.street,
-          zip: usrInfo.location.zip,
-          phone: usrInfo.phone,
-          cell: usrInfo.cell,
-          email: usrInfo.email
-        });
-        showUser.append(userHtml).find('img').toggleClass('hide');
-      },
-      error: function (data) {
-        console.error(data);
-        showUser.find('img').toggleClass('hide');
-      }
-    });
-
-  });
-
-});
-*/

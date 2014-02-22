@@ -12,7 +12,7 @@ var tplUserList = '<li><div class="person {sex}" iid="{userId}"><a class="url n"
                           '<i>{title}</i> {firstName} {lastName}</a></div></li>';
 var tplUser = '<div><h2>{title} {firstName} {lastName}</h2>' +
                      '<section><h3>Location</h3>Street: {street}, {city}, {state}, {zip}</section>' +
-                     '<section><h3>Connect with him!</h3><a href="mailto:{email}">{email}</a>' +
+                     '<section><h3>Connect with user!</h3><a href="mailto:{email}">{email}</a>' +
                      '<br/>Cell: <a href="tel:{cell}">{cell}</a>'+
                      '<br/>Phone: <a href="tel:{phone}">{phone}</a></section></div>';
 
@@ -161,17 +161,18 @@ function capitalize(s) {
 }
 
 function authErr(res, form) {
-    var errorMsg = '';
-    var errors = res.responseJSON.errors;
-    if (errors) {
-        for (var i = 0; i < errors.length; i++) {
-            var err = errors[i];
-            Object.keys(err).forEach(function (key) {
-                errorMsg += err[key] + ';';
-            });
-        }
+  var errors = res.responseJSON.errors;
+  var errorMsg = res.responseJSON.error || '';
+  if (errors) {
+    for (var i = 0; i < errors.length; i++) {
+      var err = errors[i];
+      Object.keys(err).forEach(function (key) {
+        errorMsg += err[key] + ';';
+      });
     }
-    $('small', form).removeClass('hide').addClass('error').text(errorMsg || 'Something went wrong!');
+  }
+  $('small', form).removeClass('hide').addClass('error').text(errorMsg ||
+    'Something went wrong!');
 }
 
 function hideTabs() {

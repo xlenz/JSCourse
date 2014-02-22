@@ -24,21 +24,36 @@ UserManager.Views.Users = Backbone.View.extend({
   events: {
     'click a': 'showUser'
   },
+
   showUser: function (e) {
+    e.preventDefault();
     var token = config.token;
     if (!token) {
       window.alert('Please login.');
       return;
     }
     var userId = $(e.toElement).parent().attr('iid');
-    var loadingImg = $('#show-full').find('img').toggleClass('hide');
+    var showFull = $('#show-full');
+    showFull.find('div').removeData().unbind().remove();
+    var loadingImg = showFull.find('img').toggleClass('hide');
     $.ajax({
       url: config.urls.user + userId,
       headers: {
         'SECRET-TOKEN': token
       },
       type: 'GET',
-      complete: function (data) {
+      success: function (data) {
+        loadingImg.toggleClass('hide');
+        console.log('user info:', data[0]);
+        var itemInfoView = new UserManager.Views.UserInfo({
+          model: data[0].user
+        });
+        showFull.append(itemInfoView.render().$el);
+        $("html, body").animate({
+          scrollTop: $(document).height() - $(window).height()
+        });
+      },
+      error: function () {
         loadingImg.toggleClass('hide');
       }
     });
