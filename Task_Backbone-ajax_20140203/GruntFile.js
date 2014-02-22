@@ -8,9 +8,10 @@ module.exports = function (grunt) {
     copy: {
       app: {
         expand: true,
+        deleteEmptyFolders:true,
         cwd: pathToApp,
         src: [
-          '**/*'
+          '**/!(*.html|templates)'
         ],
         dest: pathToWeb
       },
@@ -34,13 +35,32 @@ module.exports = function (grunt) {
         }
       }
     },
+    includereplace: {
+      dist: {
+        files: [{
+          src: '*.html',
+          dest: pathToWeb,
+          expand: true,
+          cwd: pathToApp
+        }]
+      }
+    },
     watch: {
-      all: {
+      html: {
         options: {
           livereload: true
         },
         files: [
-          pathToApp + '**/*'
+          pathToApp + '**/*.html'
+        ],
+        tasks: ['includereplace']
+      },
+      other: {
+        options: {
+          livereload: true
+        },
+        files: [
+          pathToApp + '**/!(*.html)'
         ],
         tasks: ['copy']
       },
@@ -65,6 +85,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-include-replace');
 
   grunt.registerTask('serve', function (target) {
     grunt.task.run([
@@ -76,7 +97,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean',
-    'copy'
+    'copy',
+    'includereplace'
   ]);
 
   grunt.registerTask('default', [

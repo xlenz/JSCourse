@@ -2,13 +2,10 @@
 
 UserManager.Views.User = Backbone.View.extend({
   template: _.template($('#tpl-User').html()),
-
-  initialize: function () {
-    console.log('User view initialized.');
-  },
+  tagName: 'li',
 
   render: function () {
-    var html = this.template(this.model.toJSON());
+    var html = this.template(this.model);
     this.$el.append(html);
     return this;
   }
