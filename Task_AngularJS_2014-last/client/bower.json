@@ -1,0 +1,21 @@
+{
+  "name": "client_html",
+  "version": "0.0.0",
+  "authors": [
+    "sudodoki <smd.deluzion@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.3.0",
+    "angular-route": "~1.3.0",
+    "angular": "~1.3.0"
+  }
+}
