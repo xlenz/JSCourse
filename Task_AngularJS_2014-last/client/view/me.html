@@ -1,0 +1,24 @@
+      <div class="row">
+         <div class="column small-offset-1 small-10 large-offset-2 large-8">
+            <h1>My Profile</h1>
+            <form method="post" onsubmit='function(){debugger}' action="http://localhost:8888/user/me/avatar">
+               <label for="avatar">Upload avatar
+                  <input id="avatar" type="file">
+               </label>
+            </form>
+            <form method="post" action="http://localhost:8888/user/me" class="small-8">
+               <input name="login" type="text" placeholder="enter your login" value='George'>
+               <input name="email" type="email" placeholder="enter your email" value='george@whitehouse.gov'>
+               <label for="male">Male
+                  <input id="male" type="radio" name='sex' value='male'>
+               </label>
+               <label for="female">Female
+                  <input id="female" type="radio" name='sex' value='female'>
+               </label>
+               <label for="public">Public:
+                  <input id="public" type="checkbox" name='is_published' value='false'>
+               </label>
+               <input type="submit" value="Update my profile" class="button">
+            </form>
+         </div>
+      </div>

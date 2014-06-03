@@ -1,0 +1,18 @@
+   <nav class="top-bar" data-topbar ng-controller="TabCtrl">
+
+      <ul class="title-area">
+         <li class="name">
+            <h1>
+               <a href>Hot Date!</a>
+            </h1>
+         </li>
+      </ul>
+
+      <section class="top-bar-section">
+         <ul class="left">
+            <li ng-repeat="tab in tabs" ng-class="{ active: isCurrent($index) }">
+               <a ng-href="{{tab.href}}" ng-click="setTab($index)">{{tab.name}}</a>
+            </li>
+         </ul>
+      </section>
+   </nav>
