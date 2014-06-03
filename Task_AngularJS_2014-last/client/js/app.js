@@ -2,7 +2,7 @@
 
 (function () {
    var app = angular.module('angularSpa', ['ngRoute']);
-   app.config(function ($routeProvider, $locationProvider) {
+   app.config(function ($routeProvider) {
       $routeProvider
          .when('/login', {
             templateUrl: 'view/login.html',
@@ -23,8 +23,6 @@
          .otherwise({
             redirectTo: '/login'
          });
-      $locationProvider.html5Mode(true);
-      $locationProvider.hashPrefix(true);
    });
 
 })();

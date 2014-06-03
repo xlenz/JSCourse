@@ -5,8 +5,7 @@
   app.directive("tabManager", function () {
     return {
       restrict: 'E',
-      templateUrl: 'view/tabManager.html',
-      controller: 'TabCtrl'
+      templateUrl: 'view/tabManager.html'
     };
   });
 })();

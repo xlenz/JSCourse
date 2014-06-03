@@ -3,23 +3,17 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   //do not hardcode somehow
-   var tabs = [{
-      name: 'Login',
-      href: 'login'
-   }, {
-      name: 'Signup',
-      href: 'signup'
-   }, {
-      name: 'My Profile',
-      href: 'me'
-   }, {
-      name: 'List my dates!',
-      href: 'list'
-   }];
+   app.controller('TabCtrl', function ($scope, $q, $http) {
+      $http({
+         method: 'GET',
+         url: '/js/tabs.json'
+      }).success(function (data) {
+         $scope.tabs = data;
+      }).error(function (error) {
+         console.log('failed to load tabs content', error);
+      });
 
-   app.controller('TabCtrl', function ($scope) {
-      $scope.tabs = tabs;
+      $scope.tabs = [];
       $scope.activeTab = 0;
 
       $scope.setTab = function (id) {
