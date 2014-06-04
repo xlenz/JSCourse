@@ -4,6 +4,7 @@
    var app = angular.module('angularSpa');
 
    app.controller('TabCtrl', function ($scope, $q, $http) {
+      $scope.tabs = [];
       $http({
          method: 'GET',
          url: '/js/tabs.json'
@@ -13,7 +14,6 @@
          console.log('failed to load tabs content', error);
       });
 
-      $scope.tabs = [];
       $scope.activeTab = 0;
 
       $scope.setTab = function (id) {
