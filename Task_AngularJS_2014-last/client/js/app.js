@@ -1,7 +1,10 @@
 'use strict';
 
 (function () {
+
    var app = angular.module('angularSpa', ['ngRoute']);
+
+   app.constant('ApiUrl', null); //override SpaApi url
 
    app.run(function(Auth, $rootScope, $location) {
       $rootScope.$on('$routeChangeStart', function(evt, next) {
@@ -14,8 +17,6 @@
          event.preventDefault();
       });
    });
-
-   app.constant('ApiUrl', 'http://localhost:3000');
 
    app.config(function ($routeProvider) {
       $routeProvider

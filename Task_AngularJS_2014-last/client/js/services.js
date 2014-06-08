@@ -3,8 +3,12 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.service('ApiClient', function ($http, $window, $q, ApiUrl, Auth) {
+   app.service('ApiClient', function ($http, $window, $q, $location, ApiUrl, Auth) {
          $http.defaults.useXDomain = true;
+         var apiUrl = ApiUrl;
+         if (apiUrl === null) {
+            apiUrl = 'http://' + $location.$$host + ':3000';
+         }
 
          var qHttp = function (httpParams) {
             var deferred = $q.defer();
@@ -23,7 +27,7 @@
          };
 
          this.login = function (data) {
-            var url = ApiUrl + '/signin';
+            var url = apiUrl + '/signin';
             var httpParams = {
                method: 'POST',
                data: data,
@@ -34,7 +38,7 @@
          };
 
          this.signup = function (data) {
-            var url = ApiUrl + '/signup';
+            var url = apiUrl + '/signup';
             var httpParams = {
                method: 'POST',
                data: data,
