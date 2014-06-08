@@ -3,6 +3,18 @@
 (function () {
    var app = angular.module('angularSpa', ['ngRoute']);
 
+   app.run(function(Auth, $rootScope, $location) {
+      $rootScope.$on('$routeChangeStart', function(evt, next) {
+         if(!Auth.isAuthenticated() && next.templateUrl !== 'view/signup.html'){
+            $location.url("/login");
+         }
+         else if (Auth.isAuthenticated() && next.templateUrl !== 'view/list.html'){
+            $location.url("/me");
+         }
+         event.preventDefault();
+      });
+   });
+
    app.constant('ApiUrl', 'http://localhost:3000');
 
    app.config(function ($routeProvider) {
@@ -27,72 +39,5 @@
             redirectTo: '/login'
          });
    });
-
-   app.factory('ActiveTab', function () {
-      var activeTab = 0;
-      return {
-         get: function () {
-            return activeTab;
-         },
-         set: function (id) {
-            activeTab = id;
-         }
-      };
-   });
-
-   app.factory('Token', function () {
-      var token = null;
-      return {
-         get: function () {
-            return token;
-         },
-         set: function (_token) {
-            token = _token;
-         }
-      };
-   });
-
-   app.service('ApiClient', function ($http, $window, $q, ApiUrl, Token) {
-         $http.defaults.useXDomain = true;
-
-         var qHttp = function (httpParams) {
-            var deferred = $q.defer();
-
-            $http(httpParams).success(function (data) {
-               if (Token.get() === null) {
-                  Token.set(data.token);
-                  $window.location.href = '#me';
-               }
-               deferred.resolve(data);
-            }).error(function (data) {
-               deferred.reject(data);
-            });
-
-            return deferred.promise;
-         };
-
-         this.login = function (data) {
-            var url = ApiUrl + '/signin';
-            var httpParams = {
-               method: 'POST',
-               data: data,
-               url: url
-            };
-
-            return qHttp(httpParams);
-         };
-
-         this.signup = function (data) {
-            var url = ApiUrl + '/signup';
-            var httpParams = {
-               method: 'POST',
-               data: data,
-               url: url
-            };
-
-            return qHttp(httpParams);
-         };
-      }
-   );
 
 })();

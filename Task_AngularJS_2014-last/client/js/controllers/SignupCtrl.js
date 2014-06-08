@@ -10,12 +10,8 @@
       $scope.passwordMatch = true;
 
       $scope.submit = function (value) {
-         if ($scope.user.password === $scope.user.passwordConfirmation) {
-            $scope.passwordMatch = true;
-         }
-         else {
-            $scope.passwordMatch = false;
-         }
+         $scope.passwordMatch = ($scope.user.password === $scope.user.passwordConfirmation);
+
          if ($scope.signupForm.$valid && $scope.passwordMatch) {
             post(value);
          }

@@ -3,7 +3,7 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.controller('TabCtrl', function ($scope, $http, ActiveTab, Token) {
+   app.controller('TabCtrl', function ($scope, $http, ActiveTab, Auth) {
       $scope.tabs = [];
       $http({
          method: 'GET',
@@ -19,7 +19,13 @@
       };
 
       $scope.hide = function (id) {
-         return (Token.get() && $scope.tabs[id].hide) || (!Token.get() && !$scope.tabs[id].hide);
+         var isAuth = Auth.isAuthenticated();
+
+         // some tabs are hidden after logon
+         //other tabs are hidden until logon
+         var hideOnAuth = $scope.tabs[id].hide;
+
+         return (isAuth && hideOnAuth) || (!isAuth && !hideOnAuth);
       };
    });
 })();
