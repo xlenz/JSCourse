@@ -1,14 +1,15 @@
       <div class="row">
          <div class="column small-offset-1 small-10 large-offset-2 large-8">
             <h1>Signup</h1>
-            <form method="post" action="http://localhost:8888/signup" class="small-8">
-               <input class="error" name="login" type="text" placeholder="enter your login">
-               <small class="error">Something went wrong!</small>
-               <input name="email" type="email" placeholder="enter your email">
-               <input name="password" type="password" placeholder="enter your new password">
-               <input name="passwordConfirmation" type="password" placeholder="retype it">
+            <form name="signupForm" ng-submit="submit()" novalidate class="small-8">
+               <input ng-model="user.login" ng-class="{ error : errors.length }" ng-minlength="3" ng-maxlength="20" type="text" placeholder="enter your login" required>
+               <small class="error" ng-repeat="error in errors">{{error}}</small>
+               <input ng-model="user.email" ng-maxlength="60" type="email" placeholder="enter your email" required>
+               <input ng-model="user.password" ng-minlength="3" ng-maxlength="20" type="password" placeholder="enter your new password" required>
+               <input ng-model="user.passwordConfirmation" ng-minlength="3" ng-maxlength="20" type="password" placeholder="retype it" required ng-class="{ error: !passwordMatch}">
+               <small ng-show="!passwordMatch" ng-class="{ error: !passwordMatch}">Passwords do not match.</small>
                <input type="submit" value="Let me in!" class="button">
-               <a href="/login" class="button secondary">Nah, I do have an account already.</a>
+               <a href="/#login" class="button secondary">I do have an account already</a>
             </form>
          </div>
       </div>

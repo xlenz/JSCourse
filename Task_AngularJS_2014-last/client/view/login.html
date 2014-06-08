@@ -1,12 +1,12 @@
       <div class="row">
          <div class="column small-offset-1 small-10 large-offset-2 large-8">
             <h1>Login</h1>
-            <form method="post" action="http://localhost:8888/login" class="small-8">
-               <input class="error" name="login" type="text" placeholder="enter your login">
-               <small class="error">Something went wrong!</small>
-               <input name="password" type="password" placeholder="enter your password">
+            <form name="loginForm" ng-submit="submit()" novalidate class="small-8">
+               <input ng-model="user.login" ng-minlength="3" ng-maxlength="20" type="text" ng-class="{ error: error}" placeholder="enter your login" required>
+               <small ng-show="error" ng-class="{ error: error}">{{error}}</small>
+               <input ng-model="user.password" ng-minlength="3" ng-maxlength="20" type="password" placeholder="enter your password" required>
                <input type="submit" value="Log me in" class="button">
-               <a href="/signup" class="button secondary">Sign me up</a>
+               <a href="/#signup" class="button secondary">Sign me up</a>
             </form>
          </div>
       </div>

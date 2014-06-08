@@ -3,7 +3,7 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.controller('TabCtrl', function ($scope, $q, $http) {
+   app.controller('TabCtrl', function ($scope, $http, ActiveTab, Token) {
       $scope.tabs = [];
       $http({
          method: 'GET',
@@ -14,14 +14,12 @@
          console.log('failed to load tabs content', error);
       });
 
-      $scope.activeTab = 0;
-
-      $scope.setTab = function (id) {
-         $scope.activeTab = id;
+      $scope.isCurrent = function (id) {
+         return ActiveTab.get() === id;
       };
 
-      $scope.isCurrent = function (id) {
-         return $scope.activeTab === id;
+      $scope.hide = function (id) {
+         return (Token.get() && $scope.tabs[id].hide) || (!Token.get() && !$scope.tabs[id].hide);
       };
    });
 })();

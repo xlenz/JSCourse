@@ -10,8 +10,8 @@
 
       <section class="top-bar-section">
          <ul class="left">
-            <li ng-repeat="tab in tabs" ng-class="{ active: isCurrent($index) }">
-               <a ng-href="{{tab.href}}" ng-click="setTab($index)">{{tab.name}}</a>
+            <li ng-repeat="tab in tabs" ng-hide="hide($index)" ng-class="{ active: isCurrent($index) }">
+               <a ng-href="{{tab.href}}">{{tab.name}}</a>
             </li>
          </ul>
       </section>

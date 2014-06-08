@@ -1,9 +1,11 @@
 [{
    "name": "Login",
-   "href": "#login"
+   "href": "#login",
+   "hide": true
 }, {
    "name": "Signup",
-   "href": "#signup"
+   "href": "#signup",
+   "hide": true
 }, {
    "name": "My Profile",
    "href": "#me"
