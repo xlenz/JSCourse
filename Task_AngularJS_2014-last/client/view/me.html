@@ -7,13 +7,13 @@
          <input type="file">
          <input type="submit" value="Upload" class="button tiny">
       </form>
-      <form class="small-8" novalidate>
+      <form class="small-8" name="profileForm" ng-submit="submit()" novalidate>
          <input ng-model="profile.email" type="email" placeholder="enter your email">
          <label for="male">Male
-            <input ng-model="profile.sex" id="male" type="radio" value='male' required>
+            <input ng-model="profile.sex" id="male" type="radio" value='male'>
          </label>
          <label for="female">Female
-            <input ng-model="profile.sex" id="female" type="radio" value='female' required>
+            <input ng-model="profile.sex" id="female" type="radio" value='female'>
          </label>
          <label for="public">Public:
             <input ng-model="profile.is_published" id="public" type="checkbox">

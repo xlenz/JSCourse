@@ -1,19 +1,27 @@
-<ul class="small-block-grid-3">
-   <li>
-      <div class="person {{user.sex}}" ng-repeat="user in users">
-         <a class='url n' href="" ng-click="viewUser(user)">
-            <i>{{user.mrMrs}}.</i> Know-it-all, I
-         </a>
-      </div>
-   </li>
-</ul>
+<div>
+   <ul class="small-block-grid-3">
+      <li ng-repeat="user in users">
+         <div class="person {{user.sex}}" ng-class="{ nosex : !user.sex }">
+            <!-- Don't want to load avatars when it is not needed, not just hide. Looks not good... -->
+            <img ng-show="!user.sex" ng-src="{{user.sex ? '' : user.avatar}}" alt="profile image"
+                 class="avatar-in-list">
+            <a class='url n' href="" ng-click="viewUser(user._id)">
+               <i>{{user.mrMrs}}</i> {{user.login}}
+            </a>
+         </div>
+      </li>
+   </ul>
+</div>
 
-<div id="show-full" ng-show="selectedUser.email">
-   <img src="images/ajax-loader.gif" alt="AJAX loader animation">
+<div id="show-full" ng-show="selectedUser.login || isLoading">
+   <!-- We have enough data in users list, just want to make additional request -->
+   <img src="images/ajax-loader.gif" alt="AJAX loader animation" ng-show="isLoading">
 
-   <h2>Mr. Know-it-all, I</h2>
+   <h2>{{selectedUser.mrMrs}} {{selectedUser.login}}</h2>
    <section>
-      <h3>Connect with {{selectedUser.himHer}}!</h3>
+      <img ng-src="{{selectedUser.avatar}}" alt="profile image">
+
+      <h3>Connect with {{selectedUser.himHer || selectedUser.login}}!</h3>
       <a href="mailto:{{selectedUser.email}}">{{selectedUser.email}}</a>
       <br/>
    </section>

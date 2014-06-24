@@ -9,17 +9,14 @@
       $scope.avatar = {};
       $scope.user = {};
 
-      console.log($scope.profile);
-
       ApiClient.user('me')
          .then(
          function (data) {
-            $scope.profile.email = data.email;
-            $scope.profile.avatar = data.avatar;
+            delete data._id;
+            $scope.profile = data;
          },
          function (data) {
-            console.log(data);
-            //$scope.errors = data.errors || ['Failed to signup.'];
+            console.error(data);
          }
       );
 
@@ -28,16 +25,16 @@
             post(value);
          }
       };
+
+      //no error handling here
       var post = function () {
          var promise = ApiClient.updateProfile($scope.profile);
          promise.then(
             function (data) {
                console.log(data);
-               //$scope.errors = [];
             },
             function (data) {
-               console.log(data);
-               //$scope.errors = data.errors || ['Failed to signup.'];
+               console.error(data);
             }
          );
       };

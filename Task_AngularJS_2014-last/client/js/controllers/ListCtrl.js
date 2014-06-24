@@ -6,32 +6,48 @@
    app.controller('ListCtrl', function ($scope, ActiveTab, ApiClient) {
       ActiveTab.set(3);
 
+      $scope.isLoading = false;
       $scope.users = [];
       $scope.selectedUser = {};
 
-      var promise = ApiClient.listUsers();
-      promise.then(
+      ApiClient.listUsers().then(
          function (data) {
             console.log(data);
             angular.forEach(data, function (value, key) {
-               if (data[key].sex === 'male') {
-                  data[key].mrMrs = 'Mr.';
-                  data[key].himHer = 'him';
-               }
-               else if (data[key].sex === 'female') {
-                  data[key].mrMrs = 'Mrs.';
-                  data[key].himHer = 'her';
-               }
+               data[key] = adjustSex(data[key]);
             });
             $scope.users = data;
          },
          function (data) {
-            console.log(data);
+            console.error(data);
          }
       );
 
-      $scope.viewUser = function (user) {
-         $scope.selectedUser = user;
+      $scope.viewUser = function (userId) {
+         $scope.isLoading = true;
+         ApiClient.user(userId).then(
+            function (data) {
+               $scope.isLoading = false;
+               console.log(data);
+               $scope.selectedUser = adjustSex(data);
+            },
+            function (data) {
+               $scope.isLoading = false;
+               console.error(data);
+            }
+         );
       };
+
+      function adjustSex(user) {
+         if (user.sex === 'male') {
+            user.mrMrs = 'Mr.';
+            user.himHer = 'him';
+         }
+         else if (user.sex === 'female') {
+            user.mrMrs = 'Mrs.';
+            user.himHer = 'her';
+         }
+         return user;
+      }
    });
 })();
