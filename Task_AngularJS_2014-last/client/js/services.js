@@ -3,7 +3,7 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.service('ApiClient', function ($http, $window, $q, $location, ApiUrl, Auth) {
+   app.service('ApiClient', function ($http, $q, $location, ApiUrl, Auth) {
          $http.defaults.useXDomain = true;
          var apiUrl = ApiUrl;
          if (apiUrl === null) {
@@ -16,7 +16,7 @@
             $http(httpParams).success(function (data) {
                if (!Auth.isAuthenticated()) {
                   Auth.setToken(data.token);
-                  $window.location.href = '#me';
+                  $location.url("/me");
                }
                deferred.resolve(data);
             }).error(function (data) {
@@ -47,6 +47,47 @@
 
             return qHttp(httpParams);
          };
+
+         this.updateProfile = function (data) {
+            var url = apiUrl + '/user/me';
+            var httpParams = {
+               method: 'POST',
+               data: data,
+               url: url,
+               headers: {
+                  'secret-token': Auth.getToken()
+               }
+            };
+
+            return qHttp(httpParams);
+         };
+
+         this.listUsers = function () {
+            var url = apiUrl + '/user';
+            var httpParams = {
+               method: 'GET',
+               url: url,
+               headers: {
+                  'secret-token': Auth.getToken()
+               }
+            };
+
+            return qHttp(httpParams);
+         };
+
+         this.user = function (id) {
+            var url = apiUrl + '/user/' + id;
+            var httpParams = {
+               method: 'GET',
+               url: url,
+               headers: {
+                  'secret-token': Auth.getToken()
+               }
+            };
+
+            return qHttp(httpParams);
+         };
+
       }
    );
 

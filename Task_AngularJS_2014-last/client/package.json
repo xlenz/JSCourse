@@ -7,10 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "tiny-lr": "0.0.5",
-    "gulp": "~3.7.0",
-    "express": "~4.1.1",
-    "gulp-util": "~2.2.0"
+    "tiny-lr": "0.0.7",
+    "gulp": "~3.8.1",
+    "express": "~4.4.4",
+    "gulp-util": "~2.2.17"
   },
   "author": "",
   "license": "BSD-2-Clause"
