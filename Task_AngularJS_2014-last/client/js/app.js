@@ -2,7 +2,7 @@
 
 (function () {
 
-   var app = angular.module('angularSpa', ['ngRoute']);
+   var app = angular.module('angularSpa', ['ngRoute', 'angularFileUpload']);
 
    app.constant('ApiUrl', null); //override SpaApi url
 

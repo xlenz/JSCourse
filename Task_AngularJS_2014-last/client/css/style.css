@@ -73,10 +73,11 @@ img.avatar-in-list {
     display: block;
 }
 
-/*
-unused stuff
-#me label, #me label input {
-  vertical-align: top;
-  margin-bottom: 10px;
+img.user-avatar {
+    max-height: 140px;
+    max-width: 280px;
 }
-*/
+
+td.file-actions button {
+    margin: 0 0 0;
+}

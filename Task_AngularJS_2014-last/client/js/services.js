@@ -88,6 +88,15 @@
             return qHttp(httpParams);
          };
 
+         this.avatar = function () {
+            return {
+               url: apiUrl + '/user/me/avatar',
+               headers: {
+                  'secret-token': Auth.getToken()
+               }
+            };
+         };
+
       }
    );
 

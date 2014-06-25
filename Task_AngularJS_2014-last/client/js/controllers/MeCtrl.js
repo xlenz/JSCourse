@@ -3,22 +3,30 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.controller('MeCtrl', function ($scope, ActiveTab, ApiClient, Auth) {
+   app.controller('MeCtrl', function ($scope, $fileUploader, ActiveTab, ApiClient) {
       ActiveTab.set(2);
       $scope.profile = {};
-      $scope.avatar = {};
-      $scope.user = {};
 
-      ApiClient.user('me')
-         .then(
-         function (data) {
-            delete data._id;
-            $scope.profile = data;
-         },
-         function (data) {
-            console.error(data);
-         }
-      );
+      loadProfile();
+
+      // create a uploader with options
+      var uploader = $scope.uploader = $fileUploader.create({
+         scope: $scope,
+         url: ApiClient.avatar().url,
+         headers: ApiClient.avatar().headers,
+         queueLimit: 1
+      });
+
+      // REGISTER HANDLERS
+      uploader.bind('success', function (event, xhr, item, response) {
+         loadProfile();
+         $scope.profile.avatar += '?' + new Date().getTime();
+         uploader.clearQueue();
+      });
+
+      uploader.bind('error', function (event, xhr, item, response) {
+         console.info('Error', xhr, item, response);
+      });
 
       $scope.submit = function (value) {
          if ($scope.profileForm.$valid) {
@@ -38,6 +46,19 @@
             }
          );
       };
+
+      function loadProfile() {
+         ApiClient.user('me')
+            .then(
+            function (data) {
+               delete data._id;
+               $scope.profile = data;
+            },
+            function (data) {
+               console.error(data);
+            }
+         );
+      }
 
    });
 })();
