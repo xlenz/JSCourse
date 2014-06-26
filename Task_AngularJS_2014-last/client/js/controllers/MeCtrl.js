@@ -12,6 +12,7 @@
       // create a uploader with options
       var uploader = $scope.uploader = $fileUploader.create({
          scope: $scope,
+         alias: 'avatar',
          url: ApiClient.avatar().url,
          headers: ApiClient.avatar().headers,
          queueLimit: 1
