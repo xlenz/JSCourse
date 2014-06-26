@@ -16,6 +16,7 @@
   "dependencies": {
     "angular-route": "^1.2.18",
     "angular": "^1.2.18",
-    "angular-file-upload": "^0.5.7"
+    "angular-file-upload": "^0.5.7",
+    "jquery": "~2.1.1"
   }
 }
