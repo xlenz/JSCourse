@@ -87,7 +87,7 @@ server.listen(3000, function () {
 });
 
 server.get('/version', function (req, res, next) {
-   return res.send('2.4');
+   return res.send('2.1');
 });
 
 server.post('/signin', function (req, res, next) {
@@ -187,9 +187,10 @@ server.post('/user/me', forAuthorized, setUser, function (req, res, next) {
 });
 
 server.post('/user/me/avatar', forAuthorized, setUser, function (req, res, next) {
-   var extension = req.files.file.name.split('.').slice(-1)[0];
+   console.log('&&&', req.files.avatar.path)
+   var extension = req.files.avatar.name.split('.').slice(-1)[0];
    var filename = req.user.login + '.' + extension;
-   var source = fs.createReadStream(req.files.file.path);
+   var source = fs.createReadStream(req.files.avatar.path);
    var dest = fs.createWriteStream('avatars/' + filename);
    source.pipe(dest);
 
