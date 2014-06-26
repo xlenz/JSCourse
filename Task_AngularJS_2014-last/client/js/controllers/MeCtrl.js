@@ -3,7 +3,7 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.controller('MeCtrl', function ($scope, $fileUploader, ActiveTab, ApiClient) {
+   app.controller('MeCtrl', function ($scope, $fileUploader, ActiveTab, ApiClient, ApiUrl) {
       ActiveTab.set(2);
       $scope.profile = {};
 
@@ -53,6 +53,9 @@
             function (data) {
                delete data._id;
                $scope.profile = data;
+               if ($scope.profile.avatar.indexOf('://') === -1) {
+                  $scope.profile.avatar = ApiUrl + '/' + $scope.profile.avatar;
+               }
             },
             function (data) {
                console.error(data);

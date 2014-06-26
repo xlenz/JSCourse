@@ -4,8 +4,6 @@
 
    var app = angular.module('angularSpa', ['ngRoute', 'angularFileUpload']);
 
-   app.constant('ApiUrl', null); //override SpaApi url
-
    app.run(function(Auth, $rootScope, $location) {
       $rootScope.$on('$routeChangeStart', function(evt, next) {
          if(!Auth.isAuthenticated() && next.templateUrl !== 'view/signup.html'){
@@ -14,7 +12,7 @@
          else if (Auth.isAuthenticated() && next.templateUrl !== 'view/list.html'){
             $location.url("/me");
          }
-         event.preventDefault();
+         //event.preventDefault();
       });
    });
 

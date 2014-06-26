@@ -5,10 +5,6 @@
 
    app.service('ApiClient', function ($http, $q, $location, ApiUrl, Auth) {
          $http.defaults.useXDomain = true;
-         var apiUrl = ApiUrl;
-         if (apiUrl === null) {
-            apiUrl = 'http://' + $location.$$host + ':3000';
-         }
 
          var qHttp = function (httpParams) {
             var deferred = $q.defer();
@@ -27,7 +23,7 @@
          };
 
          this.login = function (data) {
-            var url = apiUrl + '/signin';
+            var url = ApiUrl + '/signin';
             var httpParams = {
                method: 'POST',
                data: data,
@@ -38,7 +34,7 @@
          };
 
          this.signup = function (data) {
-            var url = apiUrl + '/signup';
+            var url = ApiUrl + '/signup';
             var httpParams = {
                method: 'POST',
                data: data,
@@ -49,7 +45,7 @@
          };
 
          this.updateProfile = function (data) {
-            var url = apiUrl + '/user/me';
+            var url = ApiUrl + '/user/me';
             var httpParams = {
                method: 'POST',
                data: data,
@@ -63,7 +59,7 @@
          };
 
          this.listUsers = function () {
-            var url = apiUrl + '/user';
+            var url = ApiUrl + '/user';
             var httpParams = {
                method: 'GET',
                url: url,
@@ -76,7 +72,7 @@
          };
 
          this.user = function (id) {
-            var url = apiUrl + '/user/' + id;
+            var url = ApiUrl + '/user/' + id;
             var httpParams = {
                method: 'GET',
                url: url,
@@ -90,7 +86,7 @@
 
          this.avatar = function () {
             return {
-               url: apiUrl + '/user/me/avatar',
+               url: ApiUrl + '/user/me/avatar',
                headers: {
                   'secret-token': Auth.getToken()
                }

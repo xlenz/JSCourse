@@ -87,7 +87,7 @@ server.listen(3000, function () {
 });
 
 server.get('/version', function (req, res, next) {
-   return res.send('2.0');
+   return res.send('2.4');
 });
 
 server.post('/signin', function (req, res, next) {
@@ -193,12 +193,10 @@ server.post('/user/me/avatar', forAuthorized, setUser, function (req, res, next)
    var dest = fs.createWriteStream('avatars/' + filename);
    source.pipe(dest);
 
-   var serverUrl = server.url === 'http://0.0.0.0:3000' ? 'http://localhost:3000' : server.url;
-
    source.on('end', function () {
       db.collection('users').findAndModify({
          query: { _id: req.user._id},
-         update: {$set: {avatar: serverUrl + '/avatars/' + filename}}
+         update: {$set: {avatar: 'avatars/' + filename}}
       }, function (err, doc, lastErrorObject) {
          if (err) {
             return res.send(500, { error: 'Database error:' + (err.message || 'unknown error') });

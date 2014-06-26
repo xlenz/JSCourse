@@ -3,7 +3,7 @@
 (function () {
    var app = angular.module('angularSpa');
 
-   app.controller('ListCtrl', function ($scope, ActiveTab, ApiClient) {
+   app.controller('ListCtrl', function ($scope, ActiveTab, ApiClient, ApiUrl) {
       ActiveTab.set(3);
 
       $scope.isLoading = false;
@@ -12,9 +12,11 @@
 
       ApiClient.listUsers().then(
          function (data) {
-            console.log(data);
             angular.forEach(data, function (value, key) {
                data[key] = adjustSex(data[key]);
+               if (data[key].avatar.indexOf('://') === -1) {
+                  data[key].avatar = ApiUrl + '/' + data[key].avatar;
+               }
             });
             $scope.users = data;
          },
@@ -30,6 +32,9 @@
                $scope.isLoading = false;
                console.log(data);
                $scope.selectedUser = adjustSex(data);
+               if ($scope.selectedUser.avatar.indexOf('://') === -1) {
+                  $scope.selectedUser.avatar = ApiUrl + '/' + $scope.selectedUser.avatar;
+               }
             },
             function (data) {
                $scope.isLoading = false;
